@@ -5,7 +5,8 @@
       "@pages/*": ["./pages/*"],
       "@common/*": ["./components/common/*"],
       "@fonts/*": ["./static/fonts/*"],
-      "@routes/*": ["./routes/*"]
+      "@routes/*": ["./routes/*"],
+      "@api/*": ["./lib/api/*"]
     }
   }
 }
