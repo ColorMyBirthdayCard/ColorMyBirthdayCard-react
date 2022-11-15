@@ -12,10 +12,8 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'import/no-unresolved': 'off',
-    'react/function-component-definition': [
-      2,
-      { namedComponents: 'arrow-function' }
-    ],
-    'react/prop-types': 'off'
+    'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
+    'react/prop-types': 'off',
+    'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }]
   }
 };
