@@ -8,7 +8,7 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
     const temp = config;
-    temp.headers['Content-Type'] = 'application/json';
+    temp.headers['Content-Type'] = 'application/x-www-form-urlencoded';
     return temp;
   },
   error => {
