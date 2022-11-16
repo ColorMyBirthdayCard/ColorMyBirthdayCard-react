@@ -7,9 +7,10 @@ const request = axios.create({
 
 request.interceptors.request.use(
   config => {
-    const temp = config;
-    temp.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    return temp;
+    const cfg = config;
+    cfg.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    cfg.headers.withCredentials = true;
+    return cfg;
   },
   error => {
     console.error(error);
