@@ -6,7 +6,8 @@
       "@common/*": ["./components/common/*"],
       "@fonts/*": ["./static/fonts/*"],
       "@routes/*": ["./routes/*"],
-      "@api/*": ["./lib/api/*"]
+      "@api/*": ["./lib/api/*"],
+      "@contexts/*": ["./contexts/*"]
     }
   }
 }

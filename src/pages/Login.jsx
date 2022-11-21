@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Title from '@common/Title';
 import Subtitle from '@common/SubTitle';
 import Button from '@common/Button';
-
+import { useUserDispatch } from '@contexts/UserContext';
 import AuthApi from '@api/AuthApi';
 
 const Container = styled.div`
@@ -51,20 +51,20 @@ const Input = styled.input`
 `;
 
 const Login = () => {
-  const navigate = useNavigate();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useUserDispatch();
 
   const login = async event => {
     event.stopPropagation();
     try {
-      // const info = {
-      //   Username: id,
-      //   Password: password
-      // };
-      const data = await AuthApi.signIn();
-      const { sessionId } = data;
+      const { memberId, sessionId } = await AuthApi.signIn({ Username: id, Password: password });
       window.sessionStorage.setItem('id', sessionId);
+      dispatch({
+        type: 'LOGIN',
+        memberId
+      });
       navigate('/');
     } catch (e) {
       console.error(e);
