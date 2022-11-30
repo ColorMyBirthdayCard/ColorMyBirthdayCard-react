@@ -2,14 +2,14 @@ import axios from 'axios';
 
 const request = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
-  timeout: 2000
+  withCredentials: true
+  // timeout: 2000
 });
 
 request.interceptors.request.use(
   config => {
     const cfg = config;
-    cfg.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    cfg.headers.withCredentials = true;
+    cfg.headers['Content-Type'] = 'application/json';
     return cfg;
   },
   error => {
@@ -20,8 +20,8 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
   response => {
-    const res = response.data;
-    return res;
+    const res = response;
+    return res.data;
   },
   error => {
     console.error(error);

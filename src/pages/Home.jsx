@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Title from '@common/Title';
+import { useUserDispatch, useUserState } from '@contexts/UserContext';
+import AuthApi from '@api/AuthApi';
 
 const Container = styled.div`
   padding-top: 2.5rem;
@@ -36,9 +38,22 @@ const Button = styled.button`
 `;
 
 const Home = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const { memberId, isLogged } = useUserState();
+  const dispatch = useUserDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await AuthApi.signUp();
+      dispatch({
+        type: 'LOGOUT'
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   if (loading) {
     return <h1>로딩중</h1>;
@@ -57,13 +72,28 @@ const Home = () => {
         <Title title="Card!" />
       </Head>
       <Body>
-        <Button
-          onClick={() => {
-            navigate('/login');
-          }}
-        >
-          Login
-        </Button>
+        {isLogged ? (
+          <>
+            <Button onClick={handleLogout}>Logout</Button>
+          </>
+        ) : (
+          <>
+            <Button
+              onClick={() => {
+                navigate('/login');
+              }}
+            >
+              Login
+            </Button>
+            <Button
+              onClick={() => {
+                navigate('/register');
+              }}
+            >
+              Register
+            </Button>
+          </>
+        )}
       </Body>
     </Container>
   );

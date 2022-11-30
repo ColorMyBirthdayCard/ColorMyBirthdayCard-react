@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import Title from '@common/Title';
 import Subtitle from '@common/SubTitle';
 import Button from '@common/Button';
-import { useUserDispatch } from '@contexts/UserContext';
 import AuthApi from '@api/AuthApi';
 
 const Container = styled.div`
@@ -50,38 +49,34 @@ const Input = styled.input`
   color: #000;
 `;
 
-const Login = () => {
-  const [id, setId] = useState('');
+const Register = () => {
+  const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
-  const dispatch = useUserDispatch();
 
-  const handleLogin = async () => {
-    const userInfo = JSON.stringify({ userId: id, password });
+  const handleRegister = async () => {
+    const userInfo = JSON.stringify({ userId, password });
     try {
-      const { userId, sessionId } = await AuthApi.signIn(userInfo);
-      window.sessionStorage.setItem('sessionId', sessionId);
-      dispatch({
-        type: 'LOGIN',
-        memberId: userId
-      });
+      const response = await AuthApi.signUp(userInfo);
       navigate('/');
     } catch (e) {
       console.error(e.response);
     }
   };
+
   return (
     <Container>
       <Head>
-        <Title title="SignIn" />
-        <Subtitle title="편지함을 만들기 위해 로그인합니다." />
+        <Title title="SignUp" />
+        <Subtitle title="내 편지를 꾸며줘에 회원가입합니다." />
       </Head>
       <Body>
         <Input
           type="text"
-          name="id"
-          value={id}
-          onChange={e => setId(e.target.value)}
+          name="userId"
+          value={userId}
+          onChange={e => setUserId(e.target.value)}
           placeholder="아이디를 입력해주세요."
         />
         <Input
@@ -91,10 +86,18 @@ const Login = () => {
           onChange={e => setPassword(e.target.value)}
           placeholder="비밀번호를 입력해주세요."
         />
-        <Button onClick={handleLogin} title="Login" width="21.5rem" />
+        <Input
+          type="text"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={e => setConfirmPassword(e.target.value)}
+          placeholder="비밀번호를 재입력해주세요."
+        />
+
+        <Button onClick={handleRegister} title="register" width="21.5rem" />
       </Body>
     </Container>
   );
 };
 
-export default Login;
+export default Register;
