@@ -7,6 +7,7 @@
       "@fonts/*": ["./static/fonts/*"],
       "@routes/*": ["./routes/*"],
       "@api/*": ["./lib/api/*"],
+      "@styles/*": ["./lib/styles/*"],
       "@contexts/*": ["./contexts/*"]
     }
   }

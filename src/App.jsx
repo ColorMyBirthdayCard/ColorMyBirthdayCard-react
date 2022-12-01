@@ -6,11 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { UserContextProvider } from '@contexts/UserContext';
 
 const ROOT = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  overflow-x: hidden;
+  width: 100%;
 `;
 
 const App = () => (

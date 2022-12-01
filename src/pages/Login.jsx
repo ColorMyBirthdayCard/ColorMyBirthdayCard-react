@@ -10,7 +10,6 @@ import AuthApi from '@api/AuthApi';
 
 const Container = styled.div`
   padding-top: 2.5rem;
-  background-color: aliceblue;
 `;
 
 const Head = styled.div`

@@ -13,5 +13,12 @@ export default {
       url: '/test',
       method: 'get'
     });
+  },
+  checkId(data) {
+    return request({
+      url: '/checkId',
+      method: 'post',
+      data
+    })
   }
 };

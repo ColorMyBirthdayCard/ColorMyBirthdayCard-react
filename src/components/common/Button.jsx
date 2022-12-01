@@ -22,8 +22,8 @@ const Btn = styled.button`
   flex-grow: 0;
 `;
 
-const Button = ({ title, onClick, width }) => (
-  <Btn onClick={onClick} width={width}>
+const Button = ({ title, ...rest}) => (
+  <Btn {...rest}>
     {title}
   </Btn>
 );

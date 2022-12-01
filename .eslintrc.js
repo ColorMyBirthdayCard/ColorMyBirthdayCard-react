@@ -16,6 +16,8 @@ module.exports = {
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
     'react/prop-types': 'off',
     'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
-    'react/jsx-no-useless-fragment': 'off'
+    'react/jsx-no-useless-fragment': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    "react/destructuring-assignment": [0, 'always'],
   }
 };
