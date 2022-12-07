@@ -1,24 +1,39 @@
 @font-face {
-    font-family: "Montserrat_Black";
-    src: url("./Montserrat-Black.ttf");
+    font-family: 'Montserrat_Black';
+    src: url('./Montserrat-Black.ttf');
 }
 
 @font-face {
-    font-family: "Montserrat_Light";
-    src: url("./Montserrat-Light.ttf");
+    font-family: 'Montserrat_Light';
+    src: url('./Montserrat-Light.ttf');
 }
 
 @font-face {
-    font-family: "Montserrat_Medium";
-    src: url("./Montserrat-Medium.ttf");
+    font-family: 'Montserrat_Medium';
+    src: url('./Montserrat-Medium.ttf');
 }
 
 @font-face {
-    font-family: "Montserrat_Regular";
-    src: url("./Montserrat-Regular.ttf");
+    font-family: 'Montserrat_Regular';
+    src: url('./Montserrat-Regular.ttf');
 }
 
 @font-face {
-    font-family: "Montserrat_SemiBold";
-    src: url("./Montserrat-SemiBold.ttf");
+    font-family: 'Montserrat_SemiBold';
+    src: url('./Montserrat-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'NotoSans_SemiBold';
+    src: url('./NotoSans-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'NotoSansKR_Medium';
+    src: url('./NotoSansKR-Medium.otf');
+}
+
+@font-face {
+    font-family: 'Montserrat_Regular';
+    src: url('./NotoSansKR-Regular.otf');
 }

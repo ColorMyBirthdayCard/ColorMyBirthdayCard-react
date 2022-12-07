@@ -2,51 +2,17 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Title from '@common/Title';
-import Subtitle from '@common/SubTitle';
-import Button from '@common/Button';
 import { useUserDispatch } from '@contexts/UserContext';
 import AuthApi from '@api/AuthApi';
-
-const Container = styled.div`
-  padding-top: 2.5rem;
-`;
-
-const Head = styled.div`
-  width: 21rem;
-`;
+import AuthHeader from '@common/AuthHeader';
+import Button from '@common/Button';
+import AuthTextField from '@common/AuthTextField';
 
 const Body = styled.div`
-  margin-top: 5rem;
-`;
-
-const Input = styled.input`
-  width: 21rem;
-  height: 5.188rem;
-  margin-bottom: 0.5rem;
-
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  flex-grow: 0;
-
-  border-radius: 90px;
-  border: solid 4px #000;
-  background-color: #fff;
-
-  overflow: auto;
-  outline: none;
-  resize: none;
-
-  font-family: 'Montserrat_Medium';
-  font-size: 0.938rem;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  text-align: center;
-  line-height: 3.67;
-  letter-spacing: -0.75px;
-  color: #000;
+  justify-content: center;
 `;
 
 const Login = () => {
@@ -59,40 +25,40 @@ const Login = () => {
     const userInfo = JSON.stringify({ userId: id, password });
     try {
       const { userId, sessionId } = await AuthApi.signIn(userInfo);
-      window.sessionStorage.setItem('sessionId', sessionId);
       dispatch({
         type: 'LOGIN',
         memberId: userId
       });
+      window.sessionStorage.setItem('sessionId', sessionId);
+      window.sessionStorage.setItem('memberId', userId);
       navigate('/');
     } catch (e) {
       console.error(e.response);
     }
   };
   return (
-    <Container>
-      <Head>
-        <Title title="SignIn" />
-        <Subtitle title="편지함을 만들기 위해 로그인합니다." />
-      </Head>
+    <>
+      <AuthHeader to='/login'
+                  pageTitle='SignIn'
+                  pageSubtitle='Please login to make your letter box'/>
       <Body>
-        <Input
-          type="text"
-          name="id"
+        <AuthTextField
+          placeholder='아이디를 입력해주세요.'
+          type='text'
+          name='id'
           value={id}
           onChange={e => setId(e.target.value)}
-          placeholder="아이디를 입력해주세요."
         />
-        <Input
-          type="text"
-          name="password"
+        <AuthTextField
+          placeholder='비밀번호를 입력해주세요.'
+          type='password'
+          name='password'
           value={password}
           onChange={e => setPassword(e.target.value)}
-          placeholder="비밀번호를 입력해주세요."
         />
-        <Button onClick={handleLogin} title="Login" width="21.5rem" />
+        <Button onClick={handleLogin} title='Login'/>
       </Body>
-    </Container>
+    </>
   );
 };
 

@@ -4,22 +4,21 @@ import styled from 'styled-components';
 import '@fonts/font.css';
 
 const Btn = styled.button`
-  width: ${props => props.width || '21rem'};
+  width: 22rem;
   height: 5.188rem;
+  margin-bottom: 1.5rem;
+  
   border-radius: 90px;
   border: solid 4px #000;
   background-color: #d9fe96;
-  cursor: pointer;
-
-  font-family: Montserrat_Medium;
+  
+  font-family: Montserrat_Medium, NotoSansKR_Medium;
   font-size: 3rem;
   line-height: 1.15;
+  text-align: center;
   letter-spacing: -2.4px;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 0;
+  color: #000;
+  cursor: pointer;
 `;
 
 const Button = ({ title, ...rest}) => (

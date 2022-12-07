@@ -1,27 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 import HeaderContainer from '@common/HeaderContainer';
-import AuthApi from '@api/AuthApi';
+import LetterContainer from '@common/LetterContainer';
 
-const Home = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const navigate = useNavigate();
-
-  if (loading) {
-    return <h1>로딩중</h1>;
-  }
-
-  if (error) {
-    return <h1>에러</h1>;
-  }
-
-  return (
-    <div>
-      <HeaderContainer />
-    </div>
-  );
-};
+const Home = () => (
+  <div>
+    <HeaderContainer />
+    <LetterContainer />
+  </div>
+);
 
 export default Home;
