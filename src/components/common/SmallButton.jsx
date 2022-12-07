@@ -16,11 +16,9 @@ const buttonStyle = css`
   cursor: pointer;
   background: ${palette.gray[8]};
   text-decoration: none;
-  @media (max-width: 620px) {
+  
+  @media (max-width: 768px) {
     font-size: 0.95rem;
-  }
-  @media (max-width: 400px) {
-    font-size: 0.75rem;
   }
   &:hover {
     background: ${palette.gray[6]};

@@ -9,8 +9,8 @@ const HeaderContainer = () => {
 
   const loadUser = () => {
     try {
-      const sessionId = window.localStorage.getItem('sessionId');
-      const user = window.localStorage.getItem('memberId');
+      const sessionId = window.sessionStorage.getItem('sessionId');
+      const user = window.sessionStorage.getItem('memberId');
       if (!sessionId || !user) return;
       dispatch({
         type: 'LOGIN',
@@ -20,6 +20,7 @@ const HeaderContainer = () => {
       dispatch({
         type: 'LOGOUT'
       });
+      window.sessionStorage.clear()
     }
   }
   // handler functions
@@ -28,10 +29,12 @@ const HeaderContainer = () => {
       dispatch({
         type: 'LOGOUT'
       });
-      window.localStorage.removeItem('user') // localStorage 에서 user 를 제거
+      window.sessionStorage.clear() // localStorage 에서 user 를 제거
+
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
+      window.sessionStorage.clear()
     }
   };
 

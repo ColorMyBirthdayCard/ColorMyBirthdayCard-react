@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -20,7 +20,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useUserDispatch();
-
+  
   const handleLogin = async () => {
     const userInfo = JSON.stringify({ userId: id, password });
     try {
@@ -31,11 +31,20 @@ const Login = () => {
       });
       window.sessionStorage.setItem('sessionId', sessionId);
       window.sessionStorage.setItem('memberId', userId);
-      navigate('/');
+      navigate(`/home?id=${userId}`);
     } catch (e) {
-      console.error(e.response);
+      // eslint-disable-next-line no-alert
+      alert('가입되지 않은 회원입니다.')
     }
   };
+
+  useEffect(() => {
+    if(window.sessionStorage.getItem('sessionId') !== null) {
+      const queryId = window.sessionStorage.getItem('memberId')
+      navigate(`/home?id=${queryId}`);
+    }
+  });
+
   return (
     <>
       <AuthHeader to='/login'

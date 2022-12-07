@@ -7,6 +7,7 @@ import { UserContextProvider } from '@contexts/UserContext';
 
 const ROOT = styled.div`
   width: 100%;
+  background-color: #fafafa;
 `;
 
 const App = () => (
