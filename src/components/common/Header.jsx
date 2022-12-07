@@ -48,7 +48,7 @@ const UserInfo = styled.div`
   margin-right: 1rem;
 `;
 
-const Header = ({isLogged, memberId}) => {
+const Header = ({ isLogged, memberId }) => {
   const dispatch = useUserDispatch();
   // handler functions
   const handleLogout = async () => {
@@ -60,20 +60,32 @@ const Header = ({isLogged, memberId}) => {
       console.log(e);
     }
   };
-
+  const hi = async () => {
+    try {
+      const response = await AuthApi.checkId();
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <>
       <HeaderBlock>
         <Wrapper>
-          <Link to='/' className='logo'> 내 생일 편지를 꾸며줘 </Link>
+          <Link to="/" className="logo">
+            {' '}
+            내 생일 편지를 꾸며줘{' '}
+          </Link>
           {isLogged ? (
-            <div className='right'>
+            <div className="right">
               <UserInfo>{memberId}</UserInfo>
               <SmallButton onClick={handleLogout}>로그아웃</SmallButton>
             </div>
           ) : (
-            <div className='right'>
-              <SmallButton to='/login'>로그인</SmallButton>
+            <div className="right">
+              <SmallButton to="/login">로그인</SmallButton>
+              <SmallButton to="/register">회원가입</SmallButton>
+              <SmallButton onClick={hi}>ㅎㅇ</SmallButton>
             </div>
           )}
         </Wrapper>

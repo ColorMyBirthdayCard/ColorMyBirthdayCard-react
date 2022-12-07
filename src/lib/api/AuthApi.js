@@ -10,8 +10,9 @@ export default {
   },
   signUp(data) {
     return request({
-      url: '/test',
-      method: 'get'
+      url: '/signup',
+      method: 'post',
+      data
     });
   },
   checkId(data) {
@@ -19,6 +20,6 @@ export default {
       url: '/checkId',
       method: 'post',
       data
-    })
+    });
   }
 };
