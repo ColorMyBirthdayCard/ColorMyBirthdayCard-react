@@ -5,7 +5,7 @@ import '@fonts/font.css';
 import { Link } from 'react-router-dom';
 
 const buttonStyle = css`
-  width: auto;
+  width: ${props => props.width || 'auto'};
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 3rem;

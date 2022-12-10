@@ -42,6 +42,7 @@ const Content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 const IconContainer = styled.div`
   display: grid;
@@ -84,14 +85,6 @@ const Icon = styled.img`
     height: 50px;
   }
 `;
-const ButtonContainer = styled.div`
-  position: relative;
-  width: 100%;
-  top: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 const Sub2 = () => {
   const [icon, setIcon] = useState(-1);
   const navigate = useNavigate();
@@ -121,10 +114,8 @@ const Sub2 = () => {
             </div>
           ))}
         </IconContainer>
+        <Button title='Next' onClick={handleNextClick} width='15rem' style={{marginTop: '30px'}}/>
       </Content>
-      <ButtonContainer>
-        <Button title='Next' onClick={handleNextClick} />
-      </ButtonContainer>
     </Container>
   );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import Header from '@common/HeaderContainer';
-import Letter from '@common/LetterContainer';
+import HeaderContainer from '@common/HeaderContainer';
+import LetterContainer from '@common/LetterContainer';
 import { useUserState } from '@contexts/UserContext';
 import Button from '@common/Button';
 import LetterApi from '@api/LetterApi';
@@ -30,10 +30,6 @@ const CakeContainer = styled.div`
   ${ImageStyle};
   background-image: url(${CakeImage});
   background-size: contain;
-`;
-const HeaderContainer = styled(Header)`
-`;
-const LetterContainer = styled(Letter)`
 `;
 const ContentContainer = styled.div`
   position: fixed;

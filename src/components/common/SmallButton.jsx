@@ -15,7 +15,7 @@ const buttonStyle = css`
   background: none;
 
   @media (max-width: 768px) {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
   }
 
   &:hover {

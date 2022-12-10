@@ -68,15 +68,9 @@ const TextArea = styled.textarea`
   resize: none;
 `;
 
-const ButtonContainer = styled.div`
-  position: relative;
-  width: 100%;
-  top: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 const MYTextField = styled(MyTextField)`
+  width: 300px;
+  height: 4rem;
   @media (max-width: 768px) {
     height: 3rem;
   }
@@ -132,10 +126,8 @@ const Sub3 = () => {
                   style={{ backgroundImage: `url(${letterList[paper]})` }}
                   value={letter}
                   onChange={e => setLetter((e.target.value))} />
+        <Button title='Send' onClick={sendLetters} width='15rem' style={{marginTop: '30px'}}/>
       </LetterContainer>
-      <ButtonContainer>
-        <Button title='Send' onClick={sendLetters}/>
-      </ButtonContainer>
     </Container>
   );
 };

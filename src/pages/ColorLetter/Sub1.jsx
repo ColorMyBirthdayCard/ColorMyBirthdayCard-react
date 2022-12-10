@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
@@ -25,7 +26,6 @@ import HeaderContainer from '@common/HeaderContainer';
 import Button from '@common/Button';
 import MobileBackgroundImage from '@images/mobilebackground.png';
 import BackgroundImage from '@images/background2.png';
-import SwiperCore, { Navigation } from 'swiper';
 
 const Container = styled.div`
   background-repeat: no-repeat;
@@ -100,14 +100,6 @@ const Paper = styled.img`
   width: 50%;
   height: 100%;
 `;
-const ButtonContainer = styled.div`
-  position: relative;
-  width: 100%;
-  top: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 const NavigationButton = styled.button`
   width: 1rem;
   display: flex;
@@ -161,7 +153,7 @@ const Sub1 = () => {
     <Container>
       <HeaderContainer />
       <Title>Select letter paper!</Title>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <SwiperContainer>
           <NavigationButton ref={prevRef}>
             <SwiperButtonImage src={prev} alt='prev' />
@@ -197,10 +189,8 @@ const Sub1 = () => {
             <SwiperButtonImage src={next} alt='next' />
           </NavigationButton>
         </SwiperContainer>
+        <Button title='Next' onClick={handleNextClick} width='15rem' style={{ marginTop: '15px' }} />
       </div>
-      <ButtonContainer>
-        <Button title='Next' onClick={handleNextClick} />
-      </ButtonContainer>
     </Container>
   );
 };

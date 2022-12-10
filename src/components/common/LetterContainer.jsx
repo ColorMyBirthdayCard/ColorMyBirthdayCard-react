@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import LetterApi from '@api/LetterApi';
 import Letter from '@pages/Letter';
 import styled from 'styled-components';
+import dummy from '../../static/dummydata.json';
 
 const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const LetterContainer = () => {
@@ -19,8 +17,14 @@ const LetterContainer = () => {
     try {
       // setError(false);
       // setLoading(true);
-      const result = await LetterApi.fetchAll(owner);
-      console.log(result);
+      // const { data } = await LetterApi.fetchAll(owner);
+      const { data }  = dummy;
+      const temp = [];
+      for(let i = 0; i < data.length; i += 6) {
+        temp.push(data.slice(i, i + 6));
+      }
+      setLetters(temp);
+      console.log(temp);
     } catch (e) {
       // setError(true);
     }
@@ -41,8 +45,7 @@ const LetterContainer = () => {
 
   return (
     <Container>
-      <Letter letters={owner} />
-
+      <Letter letters={letters} />
     </Container>
   );
 };
