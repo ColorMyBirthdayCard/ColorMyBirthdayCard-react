@@ -7,6 +7,7 @@ import AuthApi from '@api/AuthApi';
 import AuthHeader from '@common/AuthHeader';
 import Button from '@common/Button';
 import MyTextField from '@common/MyTextField';
+import MobileBackgroundImage from '@images/mobilebackground.png';
 import BackgroundImage from '@images/background2.png';
 import SmallButton from '@common/SmallButton';
 
@@ -17,6 +18,9 @@ const Container = styled.div`
   height: 100vh;
   background-image: url(${BackgroundImage});
   background-size: cover;
+  @media (max-width: 768px) {
+    background-image: url(${MobileBackgroundImage});
+  }
 `;
 const Body = styled.div`
   display: flex;
@@ -37,10 +41,9 @@ const Login = () => {
   const handleLogin = async () => {
     const userInfo = JSON.stringify({ userId: id, password });
     try {
-      const { userId, sessionId } = await AuthApi.signIn(userInfo);
+      const { data: { userId, sessionId } } = await AuthApi.signIn(userInfo);
       dispatch({
-        type: 'LOGIN',
-        memberId: userId
+        type: 'LOGIN', memberId: userId
       });
       window.sessionStorage.setItem('sessionId', sessionId);
       window.sessionStorage.setItem('memberId', userId);
@@ -58,8 +61,7 @@ const Login = () => {
     }
   });
 
-  return (
-    <Container>
+  return (<Container>
       <AuthHeader to='/login'
                   pageTitle='SignIn'
                   pageSubtitle='Please login to make your letter box' />
@@ -81,15 +83,11 @@ const Login = () => {
         <LoginButton onClick={handleLogin} title='Login' />
       </Body>
       <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: '3rem'
+        display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '3rem'
       }}>
         <SmallButton to='/home'>go home</SmallButton>
       </div>
-    </Container>
-  );
+    </Container>);
 };
 
 export default Login;

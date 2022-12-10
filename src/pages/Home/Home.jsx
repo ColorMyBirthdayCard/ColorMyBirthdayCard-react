@@ -8,6 +8,7 @@ import Button from '@common/Button';
 import LetterApi from '@api/LetterApi';
 import CakeImage from '@images/cakeBackground.png';
 import BackgroundImage from '@images/background2.png';
+import MobileBackgroundImage from '@images/mobilebackground.png';
 
 const ImageStyle = css`;
   background-repeat: no-repeat;
@@ -19,6 +20,9 @@ const Container = styled.div`
   ${ImageStyle};
   background-image: url(${BackgroundImage});
   background-size: cover;
+  @media (max-width: 768px) {
+    background-image: url(${MobileBackgroundImage});
+  }
 `;
 const CakeContainer = styled.div`
   position: absolute;

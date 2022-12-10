@@ -20,7 +20,7 @@ const Wrapper = styled(Responsive)`
     font-style: normal;
     line-height: 1.25;
     text-align: left;
-    color: #F29FB3;
+    color: #000;
     text-decoration: none;
 
     @media (max-width: 768px) {
@@ -37,6 +37,9 @@ const Wrapper = styled(Responsive)`
 
 const Spacer = styled.div`
   height: 4rem;
+  @media (max-width: 768px) {
+    height: 1rem;
+  }
 `;
 
 const UserInfo = styled.div`

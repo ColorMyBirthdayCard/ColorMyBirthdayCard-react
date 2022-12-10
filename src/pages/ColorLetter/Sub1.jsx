@@ -23,6 +23,7 @@ import next from '@images/icon/next.png';
 
 import HeaderContainer from '@common/HeaderContainer';
 import Button from '@common/Button';
+import MobileBackgroundImage from '@images/mobilebackground.png';
 import BackgroundImage from '@images/background2.png';
 import SwiperCore, { Navigation } from 'swiper';
 
@@ -33,6 +34,9 @@ const Container = styled.div`
   height: 100vh;
   background-image: url(${BackgroundImage});
   background-size: cover;
+  @media (max-width: 768px) {
+    background-image: url(${MobileBackgroundImage});
+  }
 `;
 const SwiperContainer = styled.div`
   width: 700px;
@@ -99,7 +103,7 @@ const Paper = styled.img`
 const ButtonContainer = styled.div`
   position: relative;
   width: 100%;
-  top: 5rem;
+  top: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;

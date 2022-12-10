@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import BackgroundImage from '@images/background1.png';
-import MobileBackgroundImage from '@images/mobilebackground.png';
+import MobileBackgroundImage from '@images/mobilebackground1.png';
 import SmallButton from '@common/SmallButton';
 import Button from '@common/Button';
 import { useUserDispatch, useUserState } from '@contexts/UserContext';
@@ -26,6 +25,10 @@ const Container = styled.div`
     display: flex;
     align-items: end;
     justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    background-image: url(${MobileBackgroundImage});
   }
 `;
 

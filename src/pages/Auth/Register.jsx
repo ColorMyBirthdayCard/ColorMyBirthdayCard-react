@@ -7,6 +7,7 @@ import AuthApi from '@api/AuthApi';
 import AuthHeader from '@common/AuthHeader';
 import MyTextField from '@common/MyTextField';
 import BackgroundImage from '@images/background2.png';
+import MobileBackgroundImage from '@images/mobilebackground.png';
 import SmallButton from '@common/SmallButton';
 
 const Container = styled.div`
@@ -16,6 +17,9 @@ const Container = styled.div`
   height: 100vh;
   background-image: url(${BackgroundImage});
   background-size: cover;
+  @media (max-width: 768px) {
+    background-image: url(${MobileBackgroundImage});
+  }
 `;
 const Body = styled.div`
   display: flex;
@@ -90,7 +94,7 @@ const Register = () => {
     } else {
       try {
         const info = JSON.stringify({ userId });
-        const { message } = await AuthApi.checkId(info);
+        const { data: { message } } = await AuthApi.checkId(info);
         if (message === true) {
           setIsValidPassword(true);
           alertMessage('사용 가능한 아이디입니다.');

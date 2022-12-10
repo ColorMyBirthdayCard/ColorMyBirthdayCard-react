@@ -19,7 +19,7 @@ request.interceptors.request.use(
 );
 
 request.interceptors.response.use(
-  response => response.data,
+  response => response,
   error => {
     console.error(error);
     return Promise.reject(error);

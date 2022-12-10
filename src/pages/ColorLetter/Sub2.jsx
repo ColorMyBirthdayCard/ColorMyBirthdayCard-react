@@ -17,6 +17,7 @@ import icon9 from '@images/icon/icon9@2x.png';
 import HeaderContainer from '@common/HeaderContainer';
 import Button from '@common/Button';
 import BackgroundImage from '@images/background2.png';
+import MobileBackgroundImage from '@images/mobilebackground.png';
 
 const Container = styled.div`
   background-repeat: no-repeat;
@@ -25,6 +26,9 @@ const Container = styled.div`
   height: 100vh;
   background-image: url(${BackgroundImage});
   background-size: cover;
+  @media (max-width: 768px) {
+    background-image: url(${MobileBackgroundImage});
+  }
 `;
 const Title = styled.div`
   font-family: PatrickHand-Regular, NotoSansKR_Medium, serif;
@@ -67,15 +71,23 @@ const Select = styled.div`
   font-size: 1.5rem;
   font-family: PatrickHand-Regular, serif;
   color: white;
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+  }
 `;
 const Icon = styled.img`
   width: 100px;
   height: 100px;
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+  }
 `;
 const ButtonContainer = styled.div`
   position: relative;
   width: 100%;
-  top: 5rem;
+  top: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
