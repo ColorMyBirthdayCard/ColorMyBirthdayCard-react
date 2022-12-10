@@ -2,12 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import '@fonts/font.css'
+import '@fonts/font.css';
 import Responsive from '@common/ResponsiveBlock';
 import SmallButton from '@common/SmallButton';
-
-const HeaderBlock = styled.div`
-`;
 
 const Wrapper = styled(Responsive)`
   height: 4rem;
@@ -16,16 +13,16 @@ const Wrapper = styled(Responsive)`
   justify-content: space-between; /* flex option */
 
   .logo {
-    font-family: Montserrat_SemiBold, serif;
+    font-family: PatrickHand-Regular, serif;
     font-size: 1.625rem;
     letter-spacing: 2px;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.25;
     text-align: left;
-    color: #000;
+    color: #F29FB3;
     text-decoration: none;
-    
+
     @media (max-width: 768px) {
       font-size: 1.2rem;
     }
@@ -43,16 +40,16 @@ const Spacer = styled.div`
 `;
 
 const UserInfo = styled.div`
-  font-family: Montserrat_Medium, NotoSansKR_Medium;
-  font-size: 1.25rem;
+  font-family: PatrickHand-Regular, NotoSansKR_Medium, serif;
+  font-size: 1.5rem;
   margin-right: 1rem;
 `;
 
 const Header = ({ isLogged, memberId, onLogout }) => (
   <>
-    <HeaderBlock>
+    <div>
       <Wrapper>
-        <Link to='/' className='logo'>
+        <Link to='/home' className='logo'>
           Color My Birthday Letters
         </Link>
         {isLogged ? (
@@ -62,12 +59,11 @@ const Header = ({ isLogged, memberId, onLogout }) => (
           </div>
         ) : (
           <div className='right'>
-            <SmallButton to='/login' style={{marginRight: 5}}>Login</SmallButton>
-            <SmallButton to='/register'>SignUp</SmallButton>
+            <SmallButton to='/login' style={{ marginRight: 5 }}>Login</SmallButton>
           </div>
         )}
       </Wrapper>
-    </HeaderBlock>
+    </div>
     <Spacer />
   </>
 );

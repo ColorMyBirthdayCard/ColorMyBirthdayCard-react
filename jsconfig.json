@@ -8,7 +8,8 @@
       "@routes/*": ["./routes/*"],
       "@api/*": ["./lib/api/*"],
       "@styles/*": ["./lib/styles/*"],
-      "@contexts/*": ["./contexts/*"]
+      "@contexts/*": ["./contexts/*"],
+      "@images/*": ["./assets/*"]
     }
   }
 }

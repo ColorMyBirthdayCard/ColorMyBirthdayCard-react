@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -6,21 +6,34 @@ import { useUserDispatch } from '@contexts/UserContext';
 import AuthApi from '@api/AuthApi';
 import AuthHeader from '@common/AuthHeader';
 import Button from '@common/Button';
-import AuthTextField from '@common/AuthTextField';
+import MyTextField from '@common/MyTextField';
+import BackgroundImage from '@images/background2.png';
+import SmallButton from '@common/SmallButton';
 
+const Container = styled.div`
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(${BackgroundImage});
+  background-size: cover;
+`;
 const Body = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
-
+const LoginButton = styled(Button)`
+  width: 22rem;
+  margin-top: 0.5rem;
+`;
 const Login = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useUserDispatch();
-  
+
   const handleLogin = async () => {
     const userInfo = JSON.stringify({ userId: id, password });
     try {
@@ -34,40 +47,48 @@ const Login = () => {
       navigate(`/home?id=${userId}`);
     } catch (e) {
       // eslint-disable-next-line no-alert
-      alert('가입되지 않은 회원입니다.')
+      alert('가입되지 않은 회원입니다.');
     }
   };
 
   useEffect(() => {
-    if(window.sessionStorage.getItem('sessionId') !== null) {
-      const queryId = window.sessionStorage.getItem('memberId')
+    if (window.sessionStorage.getItem('sessionId') !== null) {
+      const queryId = window.sessionStorage.getItem('memberId');
       navigate(`/home?id=${queryId}`);
     }
   });
 
   return (
-    <>
+    <Container>
       <AuthHeader to='/login'
                   pageTitle='SignIn'
-                  pageSubtitle='Please login to make your letter box'/>
+                  pageSubtitle='Please login to make your letter box' />
       <Body>
-        <AuthTextField
+        <MyTextField
           placeholder='아이디를 입력해주세요.'
           type='text'
           name='id'
           value={id}
           onChange={e => setId(e.target.value)}
         />
-        <AuthTextField
+        <MyTextField
           placeholder='비밀번호를 입력해주세요.'
           type='password'
           name='password'
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        <Button onClick={handleLogin} title='Login'/>
+        <LoginButton onClick={handleLogin} title='Login' />
       </Body>
-    </>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '3rem'
+      }}>
+        <SmallButton to='/home'>go home</SmallButton>
+      </div>
+    </Container>
   );
 };
 

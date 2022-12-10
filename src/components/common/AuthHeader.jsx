@@ -2,12 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import '@fonts/font.css'
+import '@fonts/font.css';
 import Responsive from '@common/ResponsiveBlock';
-
-const HeaderBlock = styled.div`
-  background: white;
-`;
 
 const Wrapper = styled(Responsive)`
   height: 6rem;
@@ -15,6 +11,7 @@ const Wrapper = styled(Responsive)`
   flex-direction: column;
   align-items: center;
   justify-content: center; /* flex option */
+
   .title {
     font-family: Montserrat_SemiBold, NotoSans_SemiBold;
     font-size: 3.625rem;
@@ -51,14 +48,14 @@ const SubTitle = styled.div`
 
 const AuthHeader = ({ to, pageTitle, pageSubtitle }) => (
   <>
-    <HeaderBlock>
+    <div>
       <Wrapper>
         <Link to={to} className='title'>{pageTitle}</Link>
         <div className='subtitle'>
           <SubTitle>{pageSubtitle}</SubTitle>
         </div>
       </Wrapper>
-    </HeaderBlock>
+    </div>
     <Spacer />
   </>
 );

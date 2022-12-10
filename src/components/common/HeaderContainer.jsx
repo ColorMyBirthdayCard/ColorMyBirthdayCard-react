@@ -20,31 +20,31 @@ const HeaderContainer = () => {
       dispatch({
         type: 'LOGOUT'
       });
-      window.sessionStorage.clear()
+      window.sessionStorage.clear();
     }
-  }
+  };
   // handler functions
   const handleLogout = async () => {
     try {
       dispatch({
         type: 'LOGOUT'
       });
-      window.sessionStorage.clear() // localStorage 에서 user 를 제거
+      window.sessionStorage.clear(); // localStorage 에서 user 를 제거
 
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
-      window.sessionStorage.clear()
+      window.sessionStorage.clear();
     }
   };
 
-  useEffect( () => {
+  useEffect(() => {
     loadUser();
-  }, [])
+  }, []);
 
   return (
     <>
-      <Header memberId={memberId} isLogged={isLogged} onLogout={handleLogout}/>
+      <Header memberId={memberId} isLogged={isLogged} onLogout={handleLogout} />
     </>
   );
 };

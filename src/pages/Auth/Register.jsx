@@ -1,19 +1,33 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Button from '@common/Button';
 import AuthApi from '@api/AuthApi';
 import AuthHeader from '@common/AuthHeader';
-import AuthTextField from '@common/AuthTextField';
+import MyTextField from '@common/MyTextField';
+import BackgroundImage from '@images/background2.png';
+import SmallButton from '@common/SmallButton';
 
+const Container = styled.div`
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(${BackgroundImage});
+  background-size: cover;
+`;
 const Body = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
-
+const LoginButton = styled(Button)`
+  width: 22rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
 const Register = () => {
   // State
   const [userId, setUserId] = useState('');
@@ -53,10 +67,10 @@ const Register = () => {
 
   // Action Handler
   const handleRegister = async () => {
-    if(!isValidPassword) {
+    if (!isValidPassword) {
       alertMessage('비밀번호 양식을 지켜주세요.');
-    } else if(!isSamePassword) {
-      alertMessage('비밀번호가 일치하지 않습니다.')
+    } else if (!isSamePassword) {
+      alertMessage('비밀번호가 일치하지 않습니다.');
     } else {
       const userInfo = JSON.stringify({ userId, password });
       try {
@@ -92,19 +106,19 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if(window.sessionStorage.getItem("sessionId") !== null) {
-      const queryId = window.sessionStorage.getItem('memberId')
+    if (window.sessionStorage.getItem('sessionId') !== null) {
+      const queryId = window.sessionStorage.getItem('memberId');
       navigate(`/home?id=${queryId}`);
     }
   });
 
   return (
-    <>
+    <Container>
       <AuthHeader to='/register'
                   pageTitle='SignUp'
-                  pageSubtitle='Signup and make your letter box!'/>
+                  pageSubtitle='Signup and make your letter box!' />
       <Body>
-        <AuthTextField
+        <MyTextField
           type='text'
           name='userId'
           value={userId}
@@ -114,8 +128,8 @@ const Register = () => {
           }}
           placeholder='아이디를 입력해주세요.'
         />
-        <Button onClick={handleDuplicateIdCheck} title='check id' width='21.5rem' />
-        <AuthTextField
+        <LoginButton onClick={handleDuplicateIdCheck} title='check id' width='21.5rem' />
+        <MyTextField
           type='password'
           name='password'
           value={password}
@@ -125,7 +139,7 @@ const Register = () => {
           }}
           placeholder='비밀번호를 입력해주세요.'
         />
-        <AuthTextField
+        <MyTextField
           type='password'
           name='confirmPassword'
           value={confirmPassword}
@@ -135,9 +149,17 @@ const Register = () => {
           }}
           placeholder='비밀번호를 재입력해주세요.'
         />
-        <Button onClick={handleRegister} title='register' />
+        <LoginButton onClick={handleRegister} title='register' />
       </Body>
-    </>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '3rem'
+      }}>
+        <SmallButton to='/home'>go home</SmallButton>
+      </div>
+    </Container>
   );
 };
 

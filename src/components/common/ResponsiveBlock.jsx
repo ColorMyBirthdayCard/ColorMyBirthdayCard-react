@@ -6,7 +6,7 @@ const ResponsiveBlock = styled.div`
   width: 1024px;
   margin: 0 auto;
   box-sizing: border-box;
-  
+
   /*  desktop  */
   @media (max-width: 1024px) {
     width: 768px;

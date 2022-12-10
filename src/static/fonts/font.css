@@ -37,3 +37,8 @@
     font-family: 'Montserrat_Regular';
     src: url('./NotoSansKR-Regular.otf');
 }
+
+@font-face {
+    font-family: 'PatrickHand-Regular';
+    src: url(./PatrickHand-Regular.ttf);
+}
