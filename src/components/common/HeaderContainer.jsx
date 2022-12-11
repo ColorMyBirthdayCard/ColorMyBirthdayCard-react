@@ -43,9 +43,13 @@ const HeaderContainer = () => {
   }, []);
 
   return (
-    <>
+    <div style={{position: 'fixed',
+      width: '100vw',
+      display: 'flex',
+      justifyContent:'center',
+      alignItems:'center'}}>
       <Header memberId={memberId} isLogged={isLogged} onLogout={handleLogout} />
-    </>
+    </div>
   );
 };
 

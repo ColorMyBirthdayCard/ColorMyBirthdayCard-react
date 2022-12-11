@@ -27,6 +27,10 @@ const buttonStyle = css`
   &:hover {
     color: #8290c4;
   }
+  
+  @media(max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const StyledButton = styled.button`

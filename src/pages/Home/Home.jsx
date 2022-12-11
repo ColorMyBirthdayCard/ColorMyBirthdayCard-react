@@ -11,6 +11,7 @@ import BackgroundImage from '@images/background2.png';
 import MobileBackgroundImage from '@images/mobilebackground.png';
 
 const ImageStyle = css`;
+  position: fixed;
   background-repeat: no-repeat;
   background-position: center;
   width: 100vw;
@@ -25,19 +26,30 @@ const Container = styled.div`
   }
 `;
 const CakeContainer = styled.div`
-  position: absolute;
-  top: 0;
   ${ImageStyle};
   background-image: url(${CakeImage});
   background-size: contain;
 `;
-const ContentContainer = styled.div`
-  position: fixed;
-  width: 100%;
-  bottom: 1rem;
+const Wrapper = styled.div`
+  z-index: 100;
+  height: 100vh;
+  width: 100vw;
+`;
+const Content = styled.div`
+  width: 100vw;
+  height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+`;
+const ButtonContainer = styled.div`
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  bottom: 1rem;
 `;
 const Home = () => {
   const { memberId, isLogged } = useUserState();
@@ -55,24 +67,23 @@ const Home = () => {
     // setLoading(false);
   };
   return (
-    <Container>
-      <CakeContainer>
+    <>
+      <div style={{zIndex: 1}}>
+        <Container />
+        <CakeContainer />
+      </div>
+      <Wrapper>
         <HeaderContainer />
-        <LetterContainer />
-        <ContentContainer>
+        <div style={{height: '30vh',}} />
+        <Content>
+          <LetterContainer />
+        </Content>
+        <ButtonContainer>
           {isLogged ? <Button title='Share Letter' /> : <Button to='/sub1' title='Write Letter' />}
-        </ContentContainer>
-      </CakeContainer>
-    </Container>
+        </ButtonContainer>
+      </Wrapper>
+    </>
   );
 };
 
 export default Home;
-
-/**
- * <Container>
- *       <HeaderContainer />
- *       <LetterContainer />
- *       {isLogged ? <Button title='공유하기'/> : <Button title='편지쓰기' onClick={send}/>}
- *     </Container>
- */

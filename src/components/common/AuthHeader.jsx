@@ -20,7 +20,7 @@ const Wrapper = styled(Responsive)`
     font-style: normal;
     line-height: 1.25;
     text-align: left;
-    color: #000;
+    color: #392f31;
     text-decoration: none;
   }
 
@@ -43,7 +43,7 @@ const SubTitle = styled.div`
   line-height: 1.25;
   letter-spacing: -0.75px;
   text-align: left;
-  color: #000;
+  color: #392f31;
 `;
 
 const AuthHeader = ({ to, pageTitle, pageSubtitle }) => (

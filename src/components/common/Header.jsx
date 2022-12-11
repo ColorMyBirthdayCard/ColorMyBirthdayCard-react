@@ -47,23 +47,21 @@ const UserInfo = styled.div`
 
 const Header = ({ isLogged, memberId, onLogout }) => (
   <>
-    <div>
-      <Wrapper>
-        <Link to='/home' className='logo'>
-          Color My Birthday Letters
-        </Link>
-        {isLogged ? (
-          <div className='right'>
-            <UserInfo>Welcome! {memberId}</UserInfo>
-            <SmallButton onClick={onLogout}>Logout</SmallButton>
-          </div>
-        ) : (
-          <div className='right'>
-            <SmallButton to='/login' style={{ marginRight: 5 }}>Login</SmallButton>
-          </div>
-        )}
-      </Wrapper>
-    </div>
+    <Wrapper>
+      <Link to='/home' className='logo'>
+        Color My Birthday Letters
+      </Link>
+      {isLogged ? (
+        <div className='right'>
+          <UserInfo>Welcome! {memberId}</UserInfo>
+          <SmallButton onClick={onLogout}>Logout</SmallButton>
+        </div>
+      ) : (
+        <div className='right'>
+          <SmallButton to='/login' style={{ marginRight: 5 }}>Login</SmallButton>
+        </div>
+      )}
+    </Wrapper>
     <Spacer />
   </>
 );

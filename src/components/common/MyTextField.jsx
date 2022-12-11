@@ -17,7 +17,11 @@ const Input = styled.input`
   text-align: center;
   line-height: 3.67;
   letter-spacing: 1.25px;
-  color: #000;
+  color: #392f31;
+  
+  @media(max-width: 768px) {
+    height: 3rem;
+  }
 `;
 
 const MyTextField = ({ placeholder, ...rest }) => (

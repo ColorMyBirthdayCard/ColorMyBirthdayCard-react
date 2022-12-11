@@ -27,21 +27,10 @@ const DisplayCenter = css`
 
 const SwiperContainer = styled.div`
   ${DisplayCenter};
-  width: 600px;
-  height: 400px;
   .swiper {
     &-button-disabled {
       visibility: hidden;
     }
-  }
-
-  @media (max-width: 1024px) {
-    width: 500px;
-    height: 285px;
-  }
-  @media (max-width: 768px) {
-    width: 400px;
-    height: 230px;
   }
 `;
 
@@ -67,16 +56,11 @@ const SlideContainer = styled.div`
   grid-template-areas:
     "icon . icon"
     ". icon icon";
-  grid-column-gap: 50px;
-  grid-row-gap: 50px;
-
-  .icon {
-    width: 70px;
-    height: 70px;
-    @media (max-width: 768px) {
-      width: 25px;
-      height: 25px;
-    }
+  grid-column-gap: 60px;
+  grid-row-gap: 100px;
+  @media (max-width: 1024px) {
+    grid-column-gap: 30px;
+    grid-row-gap: 50px;
   }
 `;
 const NavigationButton = styled.button`
@@ -95,6 +79,18 @@ const SwiperButtonImage = styled.img`
 const IconContainer = styled.div`
   ${DisplayCenter};
   flex-direction: column;
+  .icon {
+    width: 70px;
+    height: 70px;
+    @media (max-width: 768px) {
+      width: 25px;
+      height: 25px;
+    }
+  }
+  .writer { 
+    font-family: PatrickHand-Regular, NotoSansKR_Medium;
+    font-size: 0.85rem;
+  }
 `;
 const Letter = ({ letters }) => {
   SwiperCore.use([Navigation]);
@@ -149,7 +145,7 @@ const Letter = ({ letters }) => {
                   {arr.map(({ paper, icon, writer, content }) => (
                     <IconContainer>
                       <img src={icons[icon]} className='icon' alt={writer} />
-                      <div>writer</div>
+                      <div className='writer'>{writer}</div>
                     </IconContainer>
                   ))}
                 </SlideContainer>

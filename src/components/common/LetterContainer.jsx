@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import LetterApi from '@api/LetterApi';
 import Letter from '@pages/Letter';
-import styled from 'styled-components';
 import dummy from '../../static/dummydata.json';
-
-const Container = styled.div`
-`;
 
 const LetterContainer = () => {
   const [loading, setLoading] = useState(false);
@@ -44,9 +40,9 @@ const LetterContainer = () => {
   }
 
   return (
-    <Container>
+    <>
       <Letter letters={letters} />
-    </Container>
+    </>
   );
 };
 

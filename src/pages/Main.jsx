@@ -60,6 +60,7 @@ const StartButton = styled(Button)`
   bottom: 5rem;
   width: 13rem;
   height: 4rem;
+  font-size: 3rem;
 `;
 const Main = () => {
   const { memberId, isLogged } = useUserState();
