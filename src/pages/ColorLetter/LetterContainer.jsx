@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import LetterApi from '@api/LetterApi';
-import Letter from "@pages/Letter";
-import styled from "styled-components";
+import Letter from '@pages/ColorLetter/Letter';
+import dummy from '../../static/dummydata.json';
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 const LetterContainer = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [letters, setLetters] = useState([]);
   const owner = new URLSearchParams(window.location.search).get('id');
 
-  const fetchLetters = async() => {
+  const fetchLetters = async () => {
     try {
       // setError(false);
       // setLoading(true);
-      const response = LetterApi.fetchAll(owner);
+      const { data } = await LetterApi.fetchAll(owner);
+      const temp = [];
+      for(let i = 0; i < data.length; i += 6) {
+        temp.push(data.slice(i, i + 6));
+      }
+      setLetters(temp);
     } catch (e) {
       // setError(true);
     }
@@ -38,9 +38,9 @@ const LetterContainer = () => {
   }
 
   return (
-    <Container>
-      <Letter letters={owner}/>
-    </Container>
+    <>
+      <Letter letters={letters} />
+    </>
   );
 };
 

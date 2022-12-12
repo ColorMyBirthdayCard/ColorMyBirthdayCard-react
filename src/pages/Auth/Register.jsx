@@ -1,27 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Button from '@common/Button';
 import AuthApi from '@api/AuthApi';
 import AuthHeader from '@common/AuthHeader';
-import AuthTextField from '@common/AuthTextField';
-
-const Body = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+import MyTextField from '@common/MyTextField';
+import BackgroundImage from '@images/background2.png';
+import MobileBackgroundImage from '@images/mobilebackground.png';
+import SmallButton from '@common/SmallButton';
 
 const Register = () => {
   // State
+  const [name, setName] = useState('');
+  const [birthday, setBirthday] = useState('');
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  const [isValidPassword, setIsValidPassword] = useState(false);
-  const [isSamePassword, setIsSamePassword] = useState(false);
+  const [isValidId, setIsValidId] = useState(false);
 
   const navigate = useNavigate();
 
@@ -37,26 +33,17 @@ const Register = () => {
   const passwordCheck = pw => {
     // 영어, 숫자, 특수문자를 최소 한 개씩 포함하는 8~16자 비밀번호
     const regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-    if (regExp.test(pw)) {
-      setIsValidPassword(true);
-    } else {
-      setIsValidPassword(false);
-    }
-  };
-  const passwordDoubleCheck = (pw, cpw) => {
-    if (pw === cpw) {
-      setIsSamePassword(true);
-    } else {
-      setIsSamePassword(false);
-    }
+    return regExp.test(pw);
   };
 
   // Action Handler
   const handleRegister = async () => {
-    if(!isValidPassword) {
+    if(!isValidId) {
+      alertMessage('아이디 중복 체크를 해주세요.')
+    } else if (!passwordCheck(password)) {
       alertMessage('비밀번호 양식을 지켜주세요.');
-    } else if(!isSamePassword) {
-      alertMessage('비밀번호가 일치하지 않습니다.')
+    } else if (password !== confirmPassword) {
+      alertMessage('비밀번호가 일치하지 않습니다.');
     } else {
       const userInfo = JSON.stringify({ userId, password });
       try {
@@ -76,69 +63,115 @@ const Register = () => {
     } else {
       try {
         const info = JSON.stringify({ userId });
-        const { message } = await AuthApi.checkId(info);
-        if (message === true) {
-          setIsValidPassword(true);
+        const { data: { message } } = await AuthApi.checkId(info);
+        if (message === "가능한 아이디") {
+          setIsValidId(true);
           alertMessage('사용 가능한 아이디입니다.');
         } else {
-          setIsValidPassword(false);
-          alertMessage('사용 불 가능한 아이디입니다.');
+          setIsValidId(false);
+          alertMessage('사용 할 수 없는 아이디입니다.');
         }
       } catch (e) {
         console.error(e);
-        alertMessage('사용 불 가능한 아이디입니다.');
+        alertMessage('사용 할 수 없는 아이디입니다.');
       }
     }
   };
 
   useEffect(() => {
-    if(window.sessionStorage.getItem("sessionId") !== null) {
-      const queryId = window.sessionStorage.getItem('memberId')
+    if (window.sessionStorage.getItem('sessionId') !== null) {
+      const queryId = window.sessionStorage.getItem('memberId');
       navigate(`/home?id=${queryId}`);
     }
   });
 
   return (
-    <>
+    <Container>
       <AuthHeader to='/register'
                   pageTitle='SignUp'
-                  pageSubtitle='Signup and make your letter box!'/>
+                  pageSubtitle='Signup and make your letter box!' />
       <Body>
-        <AuthTextField
+        <MyTextField
+          type='text'
+          name='name'
+          value={name}
+          onChange={e => {
+            setName(e.target.value);
+          }}
+          placeholder='이름을 입력해주세요.'
+        />
+        <MyTextField
+          type='date'
+          name='birthday'
+          value={birthday}
+          onChange={e => {
+            setBirthday(e.target.value);
+          }}
+          placeholder='생일을 입력해주세요.'
+        />
+        <MyTextField
           type='text'
           name='userId'
           value={userId}
           onChange={e => {
             setUserId(e.target.value);
-            idCheck(e.target.value);
           }}
           placeholder='아이디를 입력해주세요.'
         />
-        <Button onClick={handleDuplicateIdCheck} title='check id' width='21.5rem' />
-        <AuthTextField
+        <LoginButton onClick={handleDuplicateIdCheck} title='check id' width='21.5rem' />
+        <MyTextField
           type='password'
           name='password'
           value={password}
           onChange={e => {
             setPassword(e.target.value);
-            passwordCheck(e.target.value);
           }}
           placeholder='비밀번호를 입력해주세요.'
         />
-        <AuthTextField
+        <MyTextField
           type='password'
           name='confirmPassword'
           value={confirmPassword}
           onChange={e => {
             setConfirmPassword(e.target.value);
-            passwordDoubleCheck(password, e.target.value);
           }}
           placeholder='비밀번호를 재입력해주세요.'
         />
-        <Button onClick={handleRegister} title='register' />
+        <LoginButton onClick={handleRegister} title='register' />
       </Body>
-    </>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '3rem'
+      }}>
+        <SmallButton onClick={() => navigate(-1)}>go home</SmallButton>
+      </div>
+    </Container>
   );
 };
 
 export default Register;
+
+const Container = styled.div`
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(${BackgroundImage});
+  background-size: cover;
+  @media (max-width: 768px) {
+    background-image: url(${MobileBackgroundImage});
+  }
+`;
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+const LoginButton = styled(Button)`
+  width: 22rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+`;

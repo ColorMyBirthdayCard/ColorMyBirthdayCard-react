@@ -1,21 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
-
+import './App.css';
 import Routes from '@routes/Routes';
 import { BrowserRouter } from 'react-router-dom';
 import { UserContextProvider } from '@contexts/UserContext';
 
-const ROOT = styled.div`
-  width: 100%;
-  background-color: #fafafa;
-`;
-
 const App = () => (
   <UserContextProvider>
     <BrowserRouter>
-      <ROOT>
-        <Routes />
-      </ROOT>
+      <Routes />
     </BrowserRouter>
   </UserContextProvider>
 );

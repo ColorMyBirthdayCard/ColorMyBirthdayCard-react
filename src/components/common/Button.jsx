@@ -1,30 +1,48 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 import '@fonts/font.css';
 
-const Btn = styled.button`
-  width: 22rem;
-  height: 5.188rem;
-  margin-bottom: 1.5rem;
-  
-  border-radius: 90px;
-  border: solid 4px #000;
-  background-color: #d9fe96;
-  
-  font-family: Montserrat_Medium, NotoSansKR_Medium;
-  font-size: 3rem;
-  line-height: 1.15;
-  text-align: center;
-  letter-spacing: -2.4px;
-  color: #000;
-  cursor: pointer;
-`;
-
-const Button = ({ title, ...rest}) => (
-  <Btn {...rest}>
-    {title}
-  </Btn>
+const Button = ({ title, ...rest }) => (
+  rest.to ? <StyledLink {...rest} > {title} </StyledLink> : <StyledButton {...rest} >{title} </StyledButton>
 );
 
 export default Button;
+
+const buttonStyle = css`
+  width: ${props => props.width || 'auto'};
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 3rem;
+  text-decoration: none;
+  outline: none;
+
+  color: #5669AF;
+  background-color: #FCDC86;
+
+  font-family: PatrickHand-Regular, Bazzi, Serif;
+  font-size: 3rem;
+  line-height: 1.15;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    color: #8290c4;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const StyledButton = styled.button`
+  ${buttonStyle};
+`;
+
+const StyledLink = styled(Link)`
+  ${buttonStyle}
+`;

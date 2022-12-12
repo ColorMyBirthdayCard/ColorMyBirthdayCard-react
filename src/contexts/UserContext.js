@@ -2,6 +2,8 @@ import React, { createContext, useContext, useReducer } from 'react';
 
 const initialState = {
   memberId: null,
+  userName: null,
+  userBirthday: null,
   isLogged: false
 };
 
@@ -10,7 +12,12 @@ export const UserContext = createContext(initialState);
 const reducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN': {
-      return { memberId: action.memberId, isLogged: true };
+      return {
+        memberId: action.memberId,
+        userName: action.userName,
+        userBirthday: action.userBirthday,
+        isLogged: true
+      };
     }
     case 'LOGOUT': {
       return initialState;

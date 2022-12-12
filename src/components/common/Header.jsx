@@ -1,13 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
-import '@fonts/font.css'
+import '@fonts/font.css';
 import Responsive from '@common/ResponsiveBlock';
 import SmallButton from '@common/SmallButton';
 
-const HeaderBlock = styled.div`
-`;
+const Header = ({ isLogged, userName, day, onLogout }) => (
+  <>
+    <Wrapper>
+      <div className='logo'>
+        {userName ? `Color ${userName}'s Birthday Letters` : 'Color My Birthday Letters' }
+      </div>
+      {isLogged ? (
+        <div className='right'>
+          {/* eslint-disable-next-line no-nested-ternary */}
+          { day ? <div className='day'>Birthday D{day < 0 ? "+" : "-"}{day === 0 ? "Day" : (day < 0 ? -day : day)} </div> : null }
+          <SmallButton onClick={onLogout}>Logout</SmallButton>
+        </div>
+      ) : (
+        <div className='right'>
+          {/* eslint-disable-next-line no-nested-ternary */}
+          { day ? <div className='day'>Birthday D{day < 0 ? "+" : "-"}{day === 0 ? "Day" : (day < 0 ? -day : day)} </div> : null }
+          <SmallButton to='/login' style={{ marginRight: 5 }}>Login</SmallButton>
+        </div>
+      )}
+    </Wrapper>
+    <Spacer />
+  </>
+);
+
+export default Header;
 
 const Wrapper = styled(Responsive)`
   height: 4rem;
@@ -16,21 +38,31 @@ const Wrapper = styled(Responsive)`
   justify-content: space-between; /* flex option */
 
   .logo {
-    font-family: Montserrat_SemiBold, serif;
+    font-family: PatrickHand-Regular, Bazzi, serif;
     font-size: 1.625rem;
     letter-spacing: 2px;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.25;
     text-align: left;
-    color: #000;
+    color: #5669AF;
     text-decoration: none;
-    
+
     @media (max-width: 768px) {
       font-size: 1.2rem;
     }
   }
-
+  .day {
+    font-family: PatrickHand-Regular, Bazzi, serif;
+    font-size: 1.225rem;
+    letter-spacing: 2px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    text-align: left;
+    color: #5669AF;
+    text-decoration: none;
+  }
   .right {
     display: flex;
     align-items: center;
@@ -39,37 +71,5 @@ const Wrapper = styled(Responsive)`
 `;
 
 const Spacer = styled.div`
-  height: 4rem;
+  height: 1rem;
 `;
-
-const UserInfo = styled.div`
-  font-family: Montserrat_Medium, NotoSansKR_Medium;
-  font-size: 1.25rem;
-  margin-right: 1rem;
-`;
-
-const Header = ({ isLogged, memberId, onLogout }) => (
-  <>
-    <HeaderBlock>
-      <Wrapper>
-        <Link to='/' className='logo'>
-          Color My Birthday Letters
-        </Link>
-        {isLogged ? (
-          <div className='right'>
-            <UserInfo>Welcome! {memberId}</UserInfo>
-            <SmallButton onClick={onLogout}>Logout</SmallButton>
-          </div>
-        ) : (
-          <div className='right'>
-            <SmallButton to='/login' style={{marginRight: 5}}>Login</SmallButton>
-            <SmallButton to='/register'>SignUp</SmallButton>
-          </div>
-        )}
-      </Wrapper>
-    </HeaderBlock>
-    <Spacer />
-  </>
-);
-
-export default Header;
