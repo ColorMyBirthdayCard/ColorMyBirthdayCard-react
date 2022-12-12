@@ -1,8 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import '@fonts/font.css';
-import { Link } from 'react-router-dom';
+
+const Button = ({ title, ...rest }) => (
+  rest.to ? <StyledLink {...rest} > {title} </StyledLink> : <StyledButton {...rest} >{title} </StyledButton>
+);
+
+export default Button;
 
 const buttonStyle = css`
   width: ${props => props.width || 'auto'};
@@ -15,7 +21,7 @@ const buttonStyle = css`
   color: #5669AF;
   background-color: #FCDC86;
 
-  font-family: PatrickHand-Regular, NotoSansKR_Medium, Serif;
+  font-family: PatrickHand-Regular, Bazzi, Serif;
   font-size: 3rem;
   line-height: 1.15;
   cursor: pointer;
@@ -27,8 +33,8 @@ const buttonStyle = css`
   &:hover {
     color: #8290c4;
   }
-  
-  @media(max-width: 768px) {
+
+  @media (max-width: 768px) {
     font-size: 1.5rem;
   }
 `;
@@ -40,9 +46,3 @@ const StyledButton = styled.button`
 const StyledLink = styled(Link)`
   ${buttonStyle}
 `;
-
-const Button = ({ title, ...rest }) => (
-  rest.to ? <StyledLink {...rest} > {title} </StyledLink> : <StyledButton {...rest} >{title} </StyledButton>
-);
-
-export default Button;

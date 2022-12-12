@@ -5,6 +5,22 @@ import { Link } from 'react-router-dom';
 import '@fonts/font.css';
 import Responsive from '@common/ResponsiveBlock';
 
+const AuthHeader = ({ to, pageTitle, pageSubtitle }) => (
+  <>
+    <div>
+      <Wrapper>
+        <Link to={to} className='title'>{pageTitle}</Link>
+        <div className='subtitle'>
+          <SubTitle>{pageSubtitle}</SubTitle>
+        </div>
+      </Wrapper>
+    </div>
+    <Spacer />
+  </>
+);
+
+export default AuthHeader;
+
 const Wrapper = styled(Responsive)`
   height: 6rem;
   display: flex;
@@ -45,19 +61,3 @@ const SubTitle = styled.div`
   text-align: left;
   color: #392f31;
 `;
-
-const AuthHeader = ({ to, pageTitle, pageSubtitle }) => (
-  <>
-    <div>
-      <Wrapper>
-        <Link to={to} className='title'>{pageTitle}</Link>
-        <div className='subtitle'>
-          <SubTitle>{pageSubtitle}</SubTitle>
-        </div>
-      </Wrapper>
-    </div>
-    <Spacer />
-  </>
-);
-
-export default AuthHeader;

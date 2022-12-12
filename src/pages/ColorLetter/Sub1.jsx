@@ -27,93 +27,6 @@ import Button from '@common/Button';
 import MobileBackgroundImage from '@images/mobilebackground.png';
 import BackgroundImage from '@images/background2.png';
 
-const Container = styled.div`
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100vw;
-  height: 100vh;
-  background-image: url(${BackgroundImage});
-  background-size: cover;
-  @media (max-width: 768px) {
-    background-image: url(${MobileBackgroundImage});
-  }
-`;
-const SwiperContainer = styled.div`
-  width: 700px;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .swiper {
-    &-button-disabled {
-      visibility: hidden;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    width: 500px;
-    height: 285px;
-  }
-  @media (max-width: 768px) {
-    width: 400px;
-    height: 230px;
-  }
-`;
-const Title = styled.div`
-  font-family: PatrickHand-Regular, NotoSansKR_Medium, serif;
-  font-size: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
-`;
-const MySwiper = styled(Swiper)`
-  width: 500px;
-  @media (max-width: 1024px) {
-    width: 400px;
-  }
-  @media (max-width: 768px) {
-    width: 300px;
-  }
-`;
-const MySlide = styled(SwiperSlide)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-`;
-const Select = styled.div`
-  position: absolute;
-  background-color: rgba(0, 0, 0, 50%);
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  font-family: PatrickHand-Regular, serif;
-  color: white;
-`;
-const Paper = styled.img`
-  width: 50%;
-  height: 100%;
-`;
-const NavigationButton = styled.button`
-  width: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  padding: 0;
-  background: none;
-  cursor: pointer;
-`;
-const SwiperButtonImage = styled.img`
-  width: 1rem;
-  height: 2rem;
-`;
 const Sub1 = () => {
   SwiperCore.use([Navigation]);
   const [paper, setPaper] = useState(-1);
@@ -121,6 +34,7 @@ const Sub1 = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const navigate = useNavigate();
+  const owner = new URLSearchParams(window.location.search).get('id');
 
   const papers = [[paper1, back1, 1], [paper2, back2, 2], [paper3, back3, 3],
     [paper4, back4, 4], [paper5, back5, 5], [paper6, back6, 6]];
@@ -130,7 +44,7 @@ const Sub1 = () => {
       return;
     }
     window.localStorage.setItem('paper', `${paper}`);
-    navigate('/sub2');
+    navigate(`/sub2?id=${owner}`);
   };
 
   useEffect(() => {
@@ -195,3 +109,94 @@ const Sub1 = () => {
   );
 };
 export default Sub1;
+
+
+const Container = styled.div`
+  position: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(${BackgroundImage});
+  background-size: cover;
+  @media (max-width: 768px) {
+    background-image: url(${MobileBackgroundImage});
+  }
+`;
+const SwiperContainer = styled.div`
+  width: 700px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .swiper {
+    &-button-disabled {
+      visibility: hidden;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    width: 500px;
+    height: 285px;
+  }
+  @media (max-width: 768px) {
+    width: 400px;
+    height: 230px;
+  }
+`;
+const Title = styled.div`
+  font-family: PatrickHand-Regular, NotoSansKR_Medium, serif;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+`;
+const MySwiper = styled(Swiper)`
+  width: 500px;
+  @media (max-width: 1024px) {
+    width: 400px;
+  }
+  @media (max-width: 768px) {
+    width: 300px;
+  }
+`;
+const MySlide = styled(SwiperSlide)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+const Select = styled.div`
+  position: absolute;
+  background-color: rgba(0, 0, 0, 50%);
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-family: PatrickHand-Regular, serif;
+  color: white;
+`;
+const Paper = styled.img`
+  width: 50%;
+  height: 100%;
+`;
+const NavigationButton = styled.button`
+  width: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+`;
+const SwiperButtonImage = styled.img`
+  width: 1rem;
+  height: 2rem;
+`;

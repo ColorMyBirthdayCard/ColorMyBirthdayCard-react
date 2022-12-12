@@ -17,7 +17,66 @@ import BackgroundImage from '@images/background2.png';
 import MobileBackgroundImage from '@images/mobilebackground.png';
 import LetterApi from '@api/LetterApi';
 
+const Sub3 = () => {
+  const [name, setName] = useState('');
+  const [letter, setLetter] = useState('');
+  const navigate = useNavigate();
+  const letterList = [back1, back2, back3, back4, back5, back6];
+
+  const icon = window.localStorage.getItem('icon');
+  const paper = window.localStorage.getItem('paper');
+  const owner = new URLSearchParams(window.location.search).get('id');
+
+  const sendLetters = async () => {
+    if(name === '') {
+      alert('이름을 적어주세요.')
+    } else if(letter === ' ') {
+      alert('내용을 적어주세요.')
+    } else {
+      try {
+        const data = JSON.stringify({
+          'writerId': name,
+          'content': letter,
+          'letterIndex': paper,
+          'cakeIndex' : icon
+        })
+        const response = await LetterApi.send(owner, data);
+        console.log(response);
+        if(response.status >= 200 && response.status <= 299) {
+          alert('편지를 보냈습니다!')
+          window.localStorage.clear();
+          navigate(`/home/?id=${owner}`)
+        }
+        console.log(response)
+      } catch (e) {
+        alert('다시 시도해주세요.')
+      }
+    }
+  }
+  return (
+    <Container>
+      <HeaderContainer />
+      <Title>Write your name and message!</Title>
+      <LetterContainer>
+        <MYTextField
+          placeholder='보내는 사람의 이름을 입력해주세요.'
+          type='text'
+          name='id'
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
+        <TextArea placeholder='여기에 입력하세요'
+                  style={{ backgroundImage: `url(${letterList[paper]})` }}
+                  value={letter}
+                  onChange={e => setLetter((e.target.value))} />
+        <Button title='Send' onClick={sendLetters} width='15rem' style={{marginTop: '30px'}}/>
+      </LetterContainer>
+    </Container>
+  );
+};
+export default Sub3;
 const Container = styled.div`
+  position: fixed;
   background-repeat: no-repeat;
   background-position: center;
   width: 100vw;
@@ -34,6 +93,7 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 4rem;
   margin-bottom: 2rem;
   @media (max-width: 768px) {
     margin-bottom: 0;
@@ -75,60 +135,3 @@ const MYTextField = styled(MyTextField)`
     height: 3rem;
   }
 `;
-const Sub3 = () => {
-  const [name, setName] = useState('');
-  const [letter, setLetter] = useState('');
-  const navigate = useNavigate();
-  const letterList = [back1, back2, back3, back4, back5, back6];
-
-  const icon = window.localStorage.getItem('icon');
-  const paper = window.localStorage.getItem('paper');
-  const owner = new URLSearchParams(window.location.search).get('id');
-
-  const sendLetters = async () => {
-    if(name === '') {
-      alert('이름을 적어주세요.')
-    } else if(letter === ' ') {
-      alert('내용을 적어주세요.')
-    } else {
-      try {
-        const data = JSON.stringify({
-          'writerId': name,
-          'content': letter,
-          'userId': owner,
-          'paper' : paper,
-          'icon' : icon
-        })
-        const response = await LetterApi.send(owner, data);
-        if(response.status >= 200 && response.status <= 299) {
-          alert('편지를 보냈습니다!')
-          navigate(`/home/?id=${owner}`)
-        }
-        console.log(response)
-      } catch (e) {
-        alert('다시 시도해주세요.')
-      }
-    }
-  }
-  return (
-    <Container>
-      <HeaderContainer />
-      <Title>Write your name and message!</Title>
-      <LetterContainer>
-        <MYTextField
-          placeholder='보내는 사람의 이름을 입력해주세요.'
-          type='text'
-          name='id'
-          value={name}
-          onChange={e => setName(e.target.value)}
-        />
-        <TextArea placeholder='여기에 입력하세요'
-                  style={{ backgroundImage: `url(${letterList[paper]})` }}
-                  value={letter}
-                  onChange={e => setLetter((e.target.value))} />
-        <Button title='Send' onClick={sendLetters} width='15rem' style={{marginTop: '30px'}}/>
-      </LetterContainer>
-    </Container>
-  );
-};
-export default Sub3;

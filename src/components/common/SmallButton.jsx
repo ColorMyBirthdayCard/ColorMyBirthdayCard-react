@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import '@fonts/font.css';
 
+
+const SmallButton = props => (
+  props.to ? <StyledLink {...props} /> : <StyledButton {...props} />
+);
+
+export default SmallButton;
+
 const buttonStyle = css`
   border: none;
   font-family: PatrickHand-Regular, serif;
@@ -30,9 +37,3 @@ const StyledButton = styled.button`
 const StyledLink = styled(Link)`
   ${buttonStyle}
 `;
-
-const SmallButton = props => (
-  props.to ? <StyledLink {...props} /> : <StyledButton {...props} />
-);
-
-export default SmallButton;

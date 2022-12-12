@@ -4,17 +4,45 @@ import Header from '@common/Header';
 import { useUserDispatch, useUserState } from '@contexts/UserContext';
 
 const HeaderContainer = () => {
-  const { memberId, isLogged } = useUserState();
+  const { memberId, isLogged, userName, userBirthday } = useUserState();
   const dispatch = useUserDispatch();
+  const months = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+
+  const getDay = () => {
+    if (!isLogged) return null;
+    const birthday = userBirthday.split('-');
+    const thisMonth = new Date().getMonth();
+    const thisDay = new Date().getDay();
+    let targetYear = new Date().getFullYear();
+    if (thisMonth > birthday[1]) { // 생일 달이 같거나 지난 경우
+      targetYear += 1;
+    } else if (thisMonth === parseInt(birthday[1], 10)
+      && thisDay > parseInt(birthday[2], 10)) { // 현재 날짜가 더 크면 생일이 지난겨
+      targetYear += 1;
+    }
+
+    const targetMonth = months[parseInt(birthday[1], 10) - 1];
+    const targetDay = parseInt(birthday[2], 10);
+    const day = new Date(`${targetMonth} ${targetDay}, ${targetYear} 23:59:59`).getTime();
+    const today = new Date().getTime();
+    const diff = day - today;
+    return Math.floor(diff / (1000 * 60 * 60 * 24));
+  };
 
   const loadUser = () => {
     try {
       const sessionId = window.sessionStorage.getItem('sessionId');
       const user = window.sessionStorage.getItem('memberId');
+      const name = window.sessionStorage.getItem('name');
+      const birthday = window.sessionStorage.getItem('birthday');
+
       if (!sessionId || !user) return;
       dispatch({
         type: 'LOGIN',
-        memberId: user
+        memberId: user,
+        userName: name,
+        userBirthday: birthday,
       });
     } catch (e) {
       dispatch({
@@ -43,12 +71,14 @@ const HeaderContainer = () => {
   }, []);
 
   return (
-    <div style={{position: 'fixed',
+    <div style={{
+      position: 'fixed',
       width: '100vw',
       display: 'flex',
-      justifyContent:'center',
-      alignItems:'center'}}>
-      <Header memberId={memberId} isLogged={isLogged} onLogout={handleLogout} />
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <Header memberId={memberId} userName={userName} day={getDay()} isLogged={isLogged} onLogout={handleLogout} />
     </div>
   );
 };

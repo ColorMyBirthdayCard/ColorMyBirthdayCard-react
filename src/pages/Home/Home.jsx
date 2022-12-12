@@ -1,15 +1,56 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import HeaderContainer from '@common/HeaderContainer';
-import LetterContainer from '@common/LetterContainer';
+import LetterContainer from '@pages/ColorLetter/LetterContainer';
 import { useUserState } from '@contexts/UserContext';
 import Button from '@common/Button';
-import LetterApi from '@api/LetterApi';
 import CakeImage from '@images/cakeBackground.png';
 import BackgroundImage from '@images/background2.png';
 import MobileBackgroundImage from '@images/mobilebackground.png';
 
+const Home = () => {
+  const { isLogged } = useUserState();
+  const navigate = useNavigate();
+  const owner = new URLSearchParams(window.location.search).get('id');
+
+  const clip = () => {
+    let url = '';
+    const textarea = document.createElement('textarea');
+    document.body.appendChild(textarea);
+    url = window.document.location.href;
+    textarea.value = url;
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  };
+
+  return (
+    <>
+      <div style={{ zIndex: 1 }}>
+        <Container />
+        <CakeContainer />
+      </div>
+      <Wrapper>
+        <HeaderContainer />
+        <div style={{ height: '30vh' }} />
+        <Content>
+          <LetterContainer />
+        </Content>
+        <ButtonContainer>
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {isLogged ? <Button title='Share Letter' onClick={() => { clip(); alert('복사되었습니다.');}} /> :
+            ( owner ? <Button to={`/sub1?id=${owner}`} title='Write Letter' /> :
+              <Button to='/login' title='Make letter box' />)
+            }
+        </ButtonContainer>
+      </Wrapper>
+    </>
+  );
+};
+
+export default Home;
 const ImageStyle = css`;
   position: fixed;
   background-repeat: no-repeat;
@@ -51,39 +92,3 @@ const ButtonContainer = styled.div`
   justify-content: center;
   bottom: 1rem;
 `;
-const Home = () => {
-  const { memberId, isLogged } = useUserState();
-  const owner = new URLSearchParams(window.location.search).get('id');
-
-  const send = async () => {
-    try {
-      // setError(false);
-      // setLoading(true);
-      const response = await LetterApi.fetchAll(owner);
-      console.log(response);
-    } catch (e) {
-      // setError(true);
-    }
-    // setLoading(false);
-  };
-  return (
-    <>
-      <div style={{zIndex: 1}}>
-        <Container />
-        <CakeContainer />
-      </div>
-      <Wrapper>
-        <HeaderContainer />
-        <div style={{height: '30vh',}} />
-        <Content>
-          <LetterContainer />
-        </Content>
-        <ButtonContainer>
-          {isLogged ? <Button title='Share Letter' /> : <Button to='/sub1' title='Write Letter' />}
-        </ButtonContainer>
-      </Wrapper>
-    </>
-  );
-};
-
-export default Home;

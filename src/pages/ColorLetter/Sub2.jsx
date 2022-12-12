@@ -19,7 +19,46 @@ import Button from '@common/Button';
 import BackgroundImage from '@images/background2.png';
 import MobileBackgroundImage from '@images/mobilebackground.png';
 
+const Sub2 = () => {
+  const [icon, setIcon] = useState(-1);
+  const navigate = useNavigate();
+  const owner = new URLSearchParams(window.location.search).get('id');
+
+  const icons = [icon10, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9];
+  const handleNextClick = () => {
+    if (icon === -1) {
+      alert('편지지의 우표를 선택해주세요');
+      return;
+    }
+    window.localStorage.setItem('icon', `${icon}`);
+    navigate(`/sub3?id=${owner}`);
+  };
+
+  return (
+    <Container>
+      <HeaderContainer />
+      <Title>Select letter stamp!</Title>
+      <Content>
+        <IconContainer>
+          {icons.map((elem, index) => (
+            <div>
+              {icon === index ? <Select>select</Select> : <></>}
+              <Icon src={elem} onClick={() => {
+                setIcon(index);
+              }} />
+            </div>
+          ))}
+        </IconContainer>
+        <Button title='Next' onClick={handleNextClick} width='15rem' style={{marginTop: '30px'}}/>
+      </Content>
+    </Container>
+  );
+};
+export default Sub2;
+
+
 const Container = styled.div`
+  position: fixed;
   background-repeat: no-repeat;
   background-position: center;
   width: 100vw;
@@ -36,6 +75,7 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 4rem;
   margin-bottom: 2rem;
 `;
 const Content = styled.div`
@@ -85,38 +125,3 @@ const Icon = styled.img`
     height: 50px;
   }
 `;
-const Sub2 = () => {
-  const [icon, setIcon] = useState(-1);
-  const navigate = useNavigate();
-
-  const icons = [icon10, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9];
-  const handleNextClick = () => {
-    if (icon === -1) {
-      alert('편지지의 우표를 선택해주세요');
-      return;
-    }
-    window.localStorage.setItem('icon', `${icon}`);
-    navigate('/sub3');
-  };
-
-  return (
-    <Container>
-      <HeaderContainer />
-      <Title>Select letter stamp!</Title>
-      <Content>
-        <IconContainer>
-          {icons.map((elem, index) => (
-            <div>
-              {icon === index ? <Select>select</Select> : <></>}
-              <Icon src={elem} onClick={() => {
-                setIcon(index);
-              }} />
-            </div>
-          ))}
-        </IconContainer>
-        <Button title='Next' onClick={handleNextClick} width='15rem' style={{marginTop: '30px'}}/>
-      </Content>
-    </Container>
-  );
-};
-export default Sub2;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LetterApi from '@api/LetterApi';
-import Letter from '@pages/Letter';
+import Letter from '@pages/ColorLetter/Letter';
 import dummy from '../../static/dummydata.json';
 
 const LetterContainer = () => {
@@ -13,14 +13,12 @@ const LetterContainer = () => {
     try {
       // setError(false);
       // setLoading(true);
-      // const { data } = await LetterApi.fetchAll(owner);
-      const { data }  = dummy;
+      const { data } = await LetterApi.fetchAll(owner);
       const temp = [];
       for(let i = 0; i < data.length; i += 6) {
         temp.push(data.slice(i, i + 6));
       }
       setLetters(temp);
-      console.log(temp);
     } catch (e) {
       // setError(true);
     }

@@ -3,6 +3,12 @@ import styled from 'styled-components';
 
 import '@fonts/font.css';
 
+const MyTextField = ({ placeholder, ...rest }) => (
+  <Input placeholder={placeholder} {...rest} />
+);
+
+export default MyTextField;
+
 const Input = styled.input`
   width: 21rem;
   height: 5.188rem;
@@ -18,15 +24,8 @@ const Input = styled.input`
   line-height: 3.67;
   letter-spacing: 1.25px;
   color: #392f31;
-  
-  @media(max-width: 768px) {
+
+  @media (max-width: 768px) {
     height: 3rem;
   }
 `;
-
-const MyTextField = ({ placeholder, ...rest }) => (
-  <Input placeholder={placeholder} {...rest} />
-);
-
-export default MyTextField;
-
