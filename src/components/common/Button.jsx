@@ -4,9 +4,8 @@ import styled, { css } from 'styled-components';
 
 import '@fonts/font.css';
 
-const Button = ({ title, ...rest }) => (
-  rest.to ? <StyledLink {...rest} > {title} </StyledLink> : <StyledButton {...rest} >{title} </StyledButton>
-);
+const Button = ({ title, ...rest }) =>
+  rest.to ? <StyledLink {...rest}> {title} </StyledLink> : <StyledButton {...rest}>{title} </StyledButton>;
 
 export default Button;
 
@@ -18,8 +17,8 @@ const buttonStyle = css`
   text-decoration: none;
   outline: none;
 
-  color: #5669AF;
-  background-color: #FCDC86;
+  color: #5669af;
+  background-color: #fcdc86;
 
   font-family: PatrickHand-Regular, Bazzi, Serif;
   font-size: 3rem;

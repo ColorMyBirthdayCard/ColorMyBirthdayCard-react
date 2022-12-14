@@ -12,11 +12,9 @@ const LetterModal = ({ paper, content }) => {
   const letterList = [back1, back2, back3, back4, back5, back6];
   return (
     <>
-      <TextArea readonly
-                style={{ backgroundImage: `url(${letterList[paper]})` }}
-                value={content}
-      />
-    </>);
+      <TextArea readonly style={{ backgroundImage: `url(${letterList[paper]})` }} value={content} />
+    </>
+  );
 };
 
 export default LetterModal;

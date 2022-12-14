@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Header from '@common/Header';
 import { useUserDispatch, useUserState } from '@contexts/UserContext';
@@ -6,19 +6,32 @@ import { useUserDispatch, useUserState } from '@contexts/UserContext';
 const HeaderContainer = () => {
   const { memberId, isLogged, userName, userBirthday } = useUserState();
   const dispatch = useUserDispatch();
-  const months = ['January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'];
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
 
   const getDay = () => {
-    if (!isLogged) return null;
+    if (!userBirthday) return null;
     const birthday = userBirthday.split('-');
     const thisMonth = new Date().getMonth();
     const thisDay = new Date().getDay();
     let targetYear = new Date().getFullYear();
-    if (thisMonth > birthday[1]) { // 생일 달이 같거나 지난 경우
+    if (thisMonth > birthday[1]) {
+      // 생일 달이 같거나 지난 경우
       targetYear += 1;
-    } else if (thisMonth === parseInt(birthday[1], 10)
-      && thisDay > parseInt(birthday[2], 10)) { // 현재 날짜가 더 크면 생일이 지난겨
+    } else if (thisMonth === parseInt(birthday[1], 10) && thisDay > parseInt(birthday[2], 10)) {
+      // 현재 날짜가 더 크면 생일이 지난겨
       targetYear += 1;
     }
 
@@ -30,27 +43,6 @@ const HeaderContainer = () => {
     return Math.floor(diff / (1000 * 60 * 60 * 24));
   };
 
-  const loadUser = () => {
-    try {
-      const sessionId = window.sessionStorage.getItem('sessionId');
-      const user = window.sessionStorage.getItem('memberId');
-      const name = window.sessionStorage.getItem('name');
-      const birthday = window.sessionStorage.getItem('birthday');
-
-      if (!sessionId || !user) return;
-      dispatch({
-        type: 'LOGIN',
-        memberId: user,
-        userName: name,
-        userBirthday: birthday,
-      });
-    } catch (e) {
-      dispatch({
-        type: 'LOGOUT'
-      });
-      window.sessionStorage.clear();
-    }
-  };
   // handler functions
   const handleLogout = async () => {
     try {
@@ -58,7 +50,6 @@ const HeaderContainer = () => {
         type: 'LOGOUT'
       });
       window.sessionStorage.clear(); // localStorage 에서 user 를 제거
-
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
@@ -66,18 +57,16 @@ const HeaderContainer = () => {
     }
   };
 
-  useEffect(() => {
-    loadUser();
-  }, []);
-
   return (
-    <div style={{
-      position: 'fixed',
-      width: '100vw',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}>
+    <div
+      style={{
+        position: 'fixed',
+        width: '100vw',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+    >
       <Header memberId={memberId} userName={userName} day={getDay()} isLogged={isLogged} onLogout={handleLogout} />
     </div>
   );

@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import HeaderContainer from '@common/HeaderContainer';
-import LetterContainer from '@pages/ColorLetter/LetterContainer';
-import { useUserState } from '@contexts/UserContext';
+import { useUserDispatch, useUserState } from '@contexts/UserContext';
 import Button from '@common/Button';
 import CakeImage from '@images/cakeBackground.png';
 import BackgroundImage from '@images/background2.png';
 import MobileBackgroundImage from '@images/mobilebackground.png';
+import Letter from '@pages/ColorLetter/Letter';
+import LetterApi from '@api/LetterApi';
 
 const Home = () => {
   const { isLogged } = useUserState();
+  const [letters, setLetters] = useState([]);
+  const dispatch = useUserDispatch();
   const navigate = useNavigate();
   const owner = new URLSearchParams(window.location.search).get('id');
 
@@ -26,6 +29,43 @@ const Home = () => {
     document.body.removeChild(textarea);
   };
 
+  const fetchInfo = async () => {
+    try {
+      const sessionId = sessionStorage.getItem('sessionId');
+      const memberId = sessionStorage.getItem('memberId');
+      if (sessionId && memberId) {
+        dispatch({
+          type: 'LOGIN',
+          memberId,
+          sessionId
+        });
+      }
+      const {
+        data: { name, birthday, letter },
+        status
+      } = await LetterApi.fetchAll(owner);
+      if (status >= 200 && status <= 299) {
+        dispatch({
+          type: 'FETCH',
+          userName: name,
+          userBirthday: birthday
+        });
+        const temp = [];
+        for (let i = 0; i < letter.length; i += 6) {
+          temp.push(letter.slice(i, i + 6));
+        }
+        setLetters(temp);
+      } else {
+        navigate('/home');
+      }
+    } catch (e) {
+      navigate('/home');
+    }
+  };
+
+  useEffect(() => {
+    fetchInfo();
+  }, []);
   return (
     <>
       <div style={{ zIndex: 1 }}>
@@ -36,14 +76,23 @@ const Home = () => {
         <HeaderContainer />
         <div style={{ height: '30vh' }} />
         <Content>
-          <LetterContainer />
+          <Letter letters={letters} />
         </Content>
         <ButtonContainer>
           {/* eslint-disable-next-line no-nested-ternary */}
-          {isLogged ? <Button title='Share Letter' onClick={() => { clip(); alert('복사되었습니다.');}} /> :
-            ( owner ? <Button to={`/sub1?id=${owner}`} title='Write Letter' /> :
-              <Button to='/login' title='Make letter box' />)
-            }
+          {isLogged ? (
+            <Button
+              title='Share Letter'
+              onClick={() => {
+                clip();
+                alert('복사되었습니다.');
+              }}
+            />
+          ) : owner ? (
+            <Button to={`/sub1?id=${owner}`} title='Write Letter' />
+          ) : (
+            <Button to='/login' title='Make letter box' />
+          )}
         </ButtonContainer>
       </Wrapper>
     </>
@@ -51,7 +100,8 @@ const Home = () => {
 };
 
 export default Home;
-const ImageStyle = css`;
+
+const ImageStyle = css`
   position: fixed;
   background-repeat: no-repeat;
   background-position: center;
