@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useUserDispatch } from '@contexts/UserContext';
@@ -62,6 +62,11 @@ const Login = () => {
           onChange={e => setPassword(e.target.value)}
         />
         <LoginButton onClick={handleLogin} title='Login' />
+        <Message>
+          <div>아직 회원이 아니라면?</div>
+          <Link to='/register' className='signup'>회원가입하기</Link>
+        </Message>
+
       </Body>
       <div
         style={{
@@ -99,4 +104,24 @@ const Body = styled.div`
 const LoginButton = styled(Button)`
   width: 22rem;
   margin-top: 0.5rem;
+`;
+const Message = styled.div`
+  font-family: Montserrat_Medium;
+  font-size: 0.85rem;
+  margin-top: 1.5rem;
+  width: 20rem;
+  display: flex;
+  justify-content: start;
+  order: none;
+  text-decoration: none;
+  outline: none;
+
+  .signup {
+    color: #5669af;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    &:hover {
+      color: #8290c4;
+    }
+  }
 `;
