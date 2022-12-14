@@ -47,8 +47,8 @@ const Home = () => {
       if (status >= 200 && status <= 299) {
         dispatch({
           type: 'FETCH',
-          userName: '김영균',
-          userBirthday: '1998-01-30'
+          userName: name,
+          userBirthday: birthday
         });
         const temp = [];
         for (let i = 0; i < letter.length; i += 6) {
