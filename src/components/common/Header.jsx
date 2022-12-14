@@ -8,20 +8,29 @@ import SmallButton from '@common/SmallButton';
 const Header = ({ isLogged, userName, day, onLogout }) => (
   <>
     <Wrapper>
-      <div className='logo'>
-        {userName ? `Color ${userName}'s Birthday Letters` : 'Color My Birthday Letters' }
-      </div>
+      <div className='logo'>{userName ? `Color ${userName}'s Birthday Letters` : 'Color My Birthday Letters'}</div>
       {isLogged ? (
         <div className='right'>
-          {/* eslint-disable-next-line no-nested-ternary */}
-          { day ? <div className='day'>Birthday D{day < 0 ? "+" : "-"}{day === 0 ? "Day" : (day < 0 ? -day : day)} </div> : null }
+          {day ? (
+            <div className='day'>
+              Birthday D{day < 0 ? '+' : '-'}
+              {day === 0 ? 'Day' : day < 0 ? -day : day}{' '}
+            </div>
+          ) : null}
           <SmallButton onClick={onLogout}>Logout</SmallButton>
         </div>
       ) : (
         <div className='right'>
-          {/* eslint-disable-next-line no-nested-ternary */}
-          { day ? <div className='day'>Birthday D{day < 0 ? "+" : "-"}{day === 0 ? "Day" : (day < 0 ? -day : day)} </div> : null }
-          <SmallButton to='/login' style={{ marginRight: 5 }}>Login</SmallButton>
+          {day ? (
+            <div className='day'>
+              Birthday D{day < 0 ? '+' : '-'}
+              {day === 0 ? 'Day' : day < 0 ? -day : day}{' '}
+            </div>
+          ) : null}
+          <SmallButton to='/login' style={{ marginRight: 5 }}>
+            Login
+          </SmallButton>
+          <SmallButton to='/register'>Signup</SmallButton>
         </div>
       )}
     </Wrapper>
@@ -45,7 +54,7 @@ const Wrapper = styled(Responsive)`
     font-style: normal;
     line-height: 1.25;
     text-align: left;
-    color: #5669AF;
+    color: #5669af;
     text-decoration: none;
 
     @media (max-width: 768px) {
@@ -60,7 +69,7 @@ const Wrapper = styled(Responsive)`
     font-style: normal;
     line-height: 1.25;
     text-align: left;
-    color: #5669AF;
+    color: #5669af;
     text-decoration: none;
   }
   .right {

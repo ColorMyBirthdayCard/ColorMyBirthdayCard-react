@@ -9,7 +9,9 @@ const AuthHeader = ({ to, pageTitle, pageSubtitle }) => (
   <>
     <div>
       <Wrapper>
-        <Link to={to} className='title'>{pageTitle}</Link>
+        <Link to={to} className='title'>
+          {pageTitle}
+        </Link>
         <div className='subtitle'>
           <SubTitle>{pageSubtitle}</SubTitle>
         </div>

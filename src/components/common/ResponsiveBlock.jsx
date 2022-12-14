@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Responsive = ({ children, ...rest }) => (
-  <ResponsiveBlock {...rest}> {children} </ResponsiveBlock>
-);
+const Responsive = ({ children, ...rest }) => <ResponsiveBlock {...rest}> {children} </ResponsiveBlock>;
 
 export default Responsive;
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
@@ -61,7 +60,7 @@ const Letter = ({ letters }) => {
         {swiperSetting && (
           <MySwiper
             {...swiperSetting}
-            onBeforeInit={(swiper) => {
+            onBeforeInit={swiper => {
               setTimeout(() => {
                 if (typeof swiper.params.navigation !== 'boolean') {
                   if (swiper.params.navigation) {
@@ -73,27 +72,35 @@ const Letter = ({ letters }) => {
                 swiper.navigation.init();
                 swiper.navigation.update();
               });
-            }}>
-            {letters.map((arr, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <MySlide key={index}>
-                <SlideContainer>
-                  {arr.map(({ letterIndex, cakeIndex, writerId, content }) => (
-                    <IconContainer onClick={() => {
-                      setModalData({
-                        'paper': letterIndex,
-                        content
-                      });
-                      modalToggle();
-                    }}>
-                      <img src={icons[cakeIndex]} className='icon' alt={writerId} />
-                      <div className='writer'>{writerId}</div>
-                    </IconContainer>
-                  ))}
-                </SlideContainer>
-              </MySlide>
-            ))}
-          </MySwiper>)}
+            }}
+          >
+            {letters.map(
+              (
+                arr,
+                index // eslint-disable-next-line react/no-array-index-key
+              ) => (
+                <MySlide>
+                  <SlideContainer>
+                    {arr.map(({ letterIndex, cakeIndex, writerId, content }) => (
+                      <IconContainer
+                        onClick={() => {
+                          setModalData({
+                            paper: letterIndex,
+                            content
+                          });
+                          modalToggle();
+                        }}
+                      >
+                        <img src={icons[cakeIndex]} className='icon' alt={writerId} />
+                        <div className='writer'>{writerId}</div>
+                      </IconContainer>
+                    ))}
+                  </SlideContainer>
+                </MySlide>
+              )
+            )}
+          </MySwiper>
+        )}
         <NavigationButton ref={nextRef}>
           <SwiperButtonImage src={next} alt='next' />
         </NavigationButton>
@@ -102,9 +109,13 @@ const Letter = ({ letters }) => {
         <Background>
           <ModalContainer>
             <LetterModal paper={modalData.paper} content={modalData.content} />
-            <Button onClick={() => {
-              modalToggle();
-            }} style={{ marginTop: '2rem' }} title='close' />
+            <Button
+              onClick={() => {
+                modalToggle();
+              }}
+              style={{ marginTop: '2rem' }}
+              title='close'
+            />
           </ModalContainer>
         </Background>
       ) : null}
@@ -145,8 +156,8 @@ const SlideContainer = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
-    "icon . icon"
-    ". icon icon";
+    'icon . icon'
+    '. icon icon';
   grid-column-gap: 60px;
   grid-row-gap: 100px;
   @media (max-width: 1024px) {

@@ -36,8 +36,14 @@ const Sub1 = () => {
   const navigate = useNavigate();
   const owner = new URLSearchParams(window.location.search).get('id');
 
-  const papers = [[paper1, back1, 1], [paper2, back2, 2], [paper3, back3, 3],
-    [paper4, back4, 4], [paper5, back5, 5], [paper6, back6, 6]];
+  const papers = [
+    [paper1, back1, 1],
+    [paper2, back2, 2],
+    [paper3, back3, 3],
+    [paper4, back4, 4],
+    [paper5, back5, 5],
+    [paper6, back6, 6]
+  ];
   const handleNextClick = () => {
     if (paper === -1) {
       alert('편지지를 선택해주세요.');
@@ -72,33 +78,38 @@ const Sub1 = () => {
           <NavigationButton ref={prevRef}>
             <SwiperButtonImage src={prev} alt='prev' />
           </NavigationButton>
-          {swiperSetting && (<MySwiper
-            {...swiperSetting}
-            slidesPerView={1}
-            onMySlideChange={(e) => setPaper(e.activeIndex)}
-            onBeforeInit={(swiper) => {
-              setTimeout(() => {
-                if (typeof swiper.params.navigation !== 'boolean') {
-                  if (swiper.params.navigation) {
-                    swiper.params.navigation.prevEl = prevRef.current;
-                    swiper.params.navigation.nextEl = nextRef.current;
+          {swiperSetting && (
+            <MySwiper
+              {...swiperSetting}
+              slidesPerView={1}
+              onMySlideChange={e => setPaper(e.activeIndex)}
+              onBeforeInit={swiper => {
+                setTimeout(() => {
+                  if (typeof swiper.params.navigation !== 'boolean') {
+                    if (swiper.params.navigation) {
+                      swiper.params.navigation.prevEl = prevRef.current;
+                      swiper.params.navigation.nextEl = nextRef.current;
+                    }
                   }
-                }
-                swiper.navigation.destroy();
-                swiper.navigation.init();
-                swiper.navigation.update();
-              });
-            }}>
-            {papers.map((elem, index) =>
-              <MySlide onClick={() => {
-                setPaper(index);
-              }}>
-                {paper === index ? <Select>select</Select> : <></>}
-                <Paper src={elem[0]} />
-                <Paper src={elem[1]} />
-              </MySlide>
-            )}
-          </MySwiper>)}
+                  swiper.navigation.destroy();
+                  swiper.navigation.init();
+                  swiper.navigation.update();
+                });
+              }}
+            >
+              {papers.map((elem, index) => (
+                <MySlide
+                  onClick={() => {
+                    setPaper(index);
+                  }}
+                >
+                  {paper === index ? <Select>select</Select> : <></>}
+                  <Paper src={elem[0]} />
+                  <Paper src={elem[1]} />
+                </MySlide>
+              ))}
+            </MySwiper>
+          )}
           <NavigationButton ref={nextRef}>
             <SwiperButtonImage src={next} alt='next' />
           </NavigationButton>
@@ -109,7 +120,6 @@ const Sub1 = () => {
   );
 };
 export default Sub1;
-
 
 const Container = styled.div`
   position: fixed;

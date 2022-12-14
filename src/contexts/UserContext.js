@@ -14,14 +14,28 @@ const reducer = (state, action) => {
     case 'LOGIN': {
       return {
         memberId: action.memberId,
-        userName: action.userName,
-        userBirthday: action.userBirthday,
+        userName: state.userName,
+        userBirthday: state.userBirthday,
         isLogged: true
       };
     }
     case 'LOGOUT': {
-      return initialState;
+      return {
+        memberId: null,
+        userName: state.userName,
+        userBirthday: state.userBirthday,
+        isLogged: false
+      };
     }
+    case 'FETCH': {
+      return {
+        memberId: state.memberId,
+        userName: action.userName,
+        userBirthday: action.userBirthday,
+        isLogged: state.isLogged
+      };
+    }
+
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }

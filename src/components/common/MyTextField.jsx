@@ -1,21 +1,19 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import '@fonts/font.css';
 
-const MyTextField = ({ placeholder, ...rest }) => (
-  <Input placeholder={placeholder} {...rest} />
-);
+const MyTextField = ({ placeholder, ...rest }) => <Input placeholder={placeholder} {...rest} />;
 
 export default MyTextField;
 
 const Input = styled.input`
   width: 21rem;
-  height: 5.188rem;
+  height: 3rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   border-radius: 90px;
-  border: solid 4px #FCDC86;
+  border: solid 4px #fcdc86;
   background-color: #fff;
 
   font-family: Montserrat_SemiBold, NotoSansKR_Medium, serif;

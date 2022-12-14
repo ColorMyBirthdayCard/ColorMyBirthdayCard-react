@@ -28,31 +28,31 @@ const Sub3 = () => {
   const owner = new URLSearchParams(window.location.search).get('id');
 
   const sendLetters = async () => {
-    if(name === '') {
-      alert('이름을 적어주세요.')
-    } else if(letter === ' ') {
-      alert('내용을 적어주세요.')
+    if (name === '') {
+      alert('이름을 적어주세요.');
+    } else if (letter === ' ') {
+      alert('내용을 적어주세요.');
     } else {
       try {
         const data = JSON.stringify({
-          'writerId': name,
-          'content': letter,
-          'letterIndex': paper,
-          'cakeIndex' : icon
-        })
+          writerId: name,
+          content: letter,
+          letterIndex: paper,
+          cakeIndex: icon
+        });
         const response = await LetterApi.send(owner, data);
         console.log(response);
-        if(response.status >= 200 && response.status <= 299) {
-          alert('편지를 보냈습니다!')
+        if (response.status >= 200 && response.status <= 299) {
+          alert('편지를 보냈습니다!');
           window.localStorage.clear();
-          navigate(`/home/?id=${owner}`)
+          navigate(`/home/?id=${owner}`);
         }
-        console.log(response)
+        console.log(response);
       } catch (e) {
-        alert('다시 시도해주세요.')
+        alert('다시 시도해주세요.');
       }
     }
-  }
+  };
   return (
     <Container>
       <HeaderContainer />
@@ -65,11 +65,13 @@ const Sub3 = () => {
           value={name}
           onChange={e => setName(e.target.value)}
         />
-        <TextArea placeholder='여기에 입력하세요'
-                  style={{ backgroundImage: `url(${letterList[paper]})` }}
-                  value={letter}
-                  onChange={e => setLetter((e.target.value))} />
-        <Button title='Send' onClick={sendLetters} width='15rem' style={{marginTop: '30px'}}/>
+        <TextArea
+          placeholder='여기에 입력하세요'
+          style={{ backgroundImage: `url(${letterList[paper]})` }}
+          value={letter}
+          onChange={e => setLetter(e.target.value)}
+        />
+        <Button title='Send' onClick={sendLetters} width='15rem' style={{ marginTop: '30px' }} />
       </LetterContainer>
     </Container>
   );

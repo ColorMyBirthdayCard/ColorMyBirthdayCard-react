@@ -18,7 +18,8 @@ module.exports = {
     'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
     'react/jsx-no-useless-fragment': 'off',
     'react/jsx-props-no-spreading': 'off',
-    "react/destructuring-assignment": [0, 'always'],
-    'no-param-reassign': 'off'
+    'react/destructuring-assignment': [0, 'always'],
+    'no-param-reassign': 'off',
+    'no-nested-ternary': 'off'
   }
 };

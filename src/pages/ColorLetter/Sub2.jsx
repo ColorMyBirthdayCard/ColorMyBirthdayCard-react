@@ -43,19 +43,21 @@ const Sub2 = () => {
           {icons.map((elem, index) => (
             <div>
               {icon === index ? <Select>select</Select> : <></>}
-              <Icon src={elem} onClick={() => {
-                setIcon(index);
-              }} />
+              <Icon
+                src={elem}
+                onClick={() => {
+                  setIcon(index);
+                }}
+              />
             </div>
           ))}
         </IconContainer>
-        <Button title='Next' onClick={handleNextClick} width='15rem' style={{marginTop: '30px'}}/>
+        <Button title='Next' onClick={handleNextClick} width='15rem' style={{ marginTop: '30px' }} />
       </Content>
     </Container>
   );
 };
 export default Sub2;
-
 
 const Container = styled.div`
   position: fixed;

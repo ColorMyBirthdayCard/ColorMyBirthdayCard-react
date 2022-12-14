@@ -38,8 +38,8 @@ const Register = () => {
 
   // Action Handler
   const handleRegister = async () => {
-    if(!isValidId) {
-      alertMessage('아이디 중복 체크를 해주세요.')
+    if (!isValidId) {
+      alertMessage('아이디 중복 체크를 해주세요.');
     } else if (!passwordCheck(password)) {
       alertMessage('비밀번호 양식을 지켜주세요.');
     } else if (password !== confirmPassword) {
@@ -63,8 +63,10 @@ const Register = () => {
     } else {
       try {
         const info = JSON.stringify({ userId });
-        const { data: { message } } = await AuthApi.checkId(info);
-        if (message === "가능한 아이디") {
+        const {
+          data: { message }
+        } = await AuthApi.checkId(info);
+        if (message === '가능한 아이디') {
           setIsValidId(true);
           alertMessage('사용 가능한 아이디입니다.');
         } else {
@@ -87,9 +89,7 @@ const Register = () => {
 
   return (
     <Container>
-      <AuthHeader to='/register'
-                  pageTitle='SignUp'
-                  pageSubtitle='Signup and make your letter box!' />
+      <AuthHeader to='/register' pageTitle='SignUp' pageSubtitle='Signup and make your letter box!' />
       <Body>
         <MyTextField
           type='text'
@@ -102,8 +102,10 @@ const Register = () => {
         />
         <MyTextField
           type='date'
-          name='birthday'
+          required
+          aria-required='true'
           value={birthday}
+          className='dateTextField'
           onChange={e => {
             setBirthday(e.target.value);
           }}
@@ -139,13 +141,15 @@ const Register = () => {
         />
         <LoginButton onClick={handleRegister} title='register' />
       </Body>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: '3rem'
-      }}>
-        <SmallButton onClick={() => navigate(-1)}>go home</SmallButton>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: '3rem'
+        }}
+      >
+        <SmallButton onClick={() => navigate(-1)}>go back</SmallButton>
       </div>
     </Container>
   );

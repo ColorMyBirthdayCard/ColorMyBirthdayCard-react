@@ -17,7 +17,6 @@ const Main = () => {
         type: 'LOGOUT'
       });
       window.sessionStorage.clear(); // localStorage 에서 user 를 제거
-
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
@@ -30,18 +29,21 @@ const Main = () => {
       <GNB>
         <SmallButton to='/'>home</SmallButton>
         <GNBSeperator />
-        {isLogged ? <SmallButton onClick={handleLogout}>logout</SmallButton> :
+        {isLogged ? (
+          <SmallButton onClick={handleLogout}>logout</SmallButton>
+        ) : (
           <>
-            <SmallButton to='/login'>login</SmallButton>
+            <SmallButton to='/login'>Login</SmallButton>
             <GNBSeperator />
-            <SmallButton to='/register'>sign up</SmallButton>
+            <SmallButton to='/register'>Sign up</SmallButton>
           </>
-        }
+        )}
       </GNB>
       <StartButton to='/home' title='Start!' />
     </Container>
   );
 };
+
 export default Main;
 
 const Container = styled.div`
@@ -87,7 +89,7 @@ const GNB = styled.div`
 `;
 
 const GNBSeperator = styled.div`
-  background-color: #5669AF;
+  background-color: #5669af;
   width: 0.15rem;
   height: 2rem;
 `;
