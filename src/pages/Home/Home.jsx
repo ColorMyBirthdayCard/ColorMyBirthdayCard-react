@@ -33,7 +33,7 @@ const Home = () => {
     try {
       const sessionId = sessionStorage.getItem('sessionId');
       const memberid = sessionStorage.getItem('memberId');
-      if (sessionId && memberId) {
+      if (sessionId && memberid) {
         dispatch({
           type: 'LOGIN',
           memberId: memberid,
