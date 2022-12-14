@@ -45,7 +45,7 @@ const Register = () => {
     } else if (password !== confirmPassword) {
       alertMessage('비밀번호가 일치하지 않습니다.');
     } else {
-      const userInfo = JSON.stringify({ userId, password });
+      const userInfo = JSON.stringify({ userId, password, name, birthday });
       try {
         const response = await AuthApi.signUp(userInfo);
         console.log(response);
