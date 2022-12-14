@@ -26,9 +26,10 @@ const Letter = ({ letters }) => {
   const [swiperSetting, setSwiperSetting] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
-  const { isLogged } = useUserState();
+  const { memberId, isLogged } = useUserState();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const owner = new URLSearchParams(window.location.search).get('id');
   const icons = [icon10, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9];
 
   const modalToggle = () => {
@@ -105,7 +106,7 @@ const Letter = ({ letters }) => {
           <SwiperButtonImage src={next} alt='next' />
         </NavigationButton>
       </SwiperContainer>
-      {modalOpen && isLogged ? (
+      {modalOpen && (memberId === owner) ? (
         <Background>
           <ModalContainer>
             <LetterModal paper={modalData.paper} content={modalData.content} />

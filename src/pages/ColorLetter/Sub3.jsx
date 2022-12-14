@@ -41,13 +41,11 @@ const Sub3 = () => {
           cakeIndex: icon
         });
         const response = await LetterApi.send(owner, data);
-        console.log(response);
         if (response.status >= 200 && response.status <= 299) {
           alert('편지를 보냈습니다!');
           window.localStorage.clear();
           navigate(`/home/?id=${owner}`);
         }
-        console.log(response);
       } catch (e) {
         alert('다시 시도해주세요.');
       }
