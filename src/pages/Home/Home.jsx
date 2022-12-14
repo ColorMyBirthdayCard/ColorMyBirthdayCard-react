@@ -12,7 +12,7 @@ import Letter from '@pages/ColorLetter/Letter';
 import LetterApi from '@api/LetterApi';
 
 const Home = () => {
-  const { isLogged } = useUserState();
+  const { memberId, isLogged } = useUserState();
   const [letters, setLetters] = useState([]);
   const dispatch = useUserDispatch();
   const navigate = useNavigate();
@@ -32,12 +32,12 @@ const Home = () => {
   const fetchInfo = async () => {
     try {
       const sessionId = sessionStorage.getItem('sessionId');
-      const memberId = sessionStorage.getItem('memberId');
+      const memberid = sessionStorage.getItem('memberId');
       if (sessionId && memberId) {
         dispatch({
           type: 'LOGIN',
-          memberId,
-          sessionId
+          memberId: memberid,
+	  sessionId
         });
       }
       const {
@@ -80,7 +80,7 @@ const Home = () => {
         </Content>
         <ButtonContainer>
           {/* eslint-disable-next-line no-nested-ternary */}
-          {isLogged ? (
+          {(memberId === owner) ? (
             <Button
               title='Share Letter'
               onClick={() => {
