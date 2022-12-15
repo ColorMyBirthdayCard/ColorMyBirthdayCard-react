@@ -80,7 +80,7 @@ const Home = () => {
         </Content>
         <ButtonContainer>
           {/* eslint-disable-next-line no-nested-ternary */}
-          {(memberId === owner) ? (
+          {(owner !== null && memberId === owner) ? (
             <Button
               title='Share Letter'
               onClick={() => {
